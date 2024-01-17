@@ -2,10 +2,10 @@
 classDiagram
     Basket : - product - ArrayList< Product >
     Basket : - size - int
-    Basket : + addProduct(Product) - boolean
-    Basket : + addProduct(Product, int) - boolean
-    Basket : + removeProduct(Product) - boolean
-    Basket : + removeProduct(Product, int) - boolean
+    Basket : + addToBasket(Product) - boolean
+    Basket : + addToBasket(Product, int) - boolean
+    Basket : + removeFromBasket(Product) - boolean
+    Basket : + removeFromBasket(Product, int) - boolean
     Basket : + changeCapacity(int) - boolean
     Basket : + getTotal() - Double
     Product : - name - String
