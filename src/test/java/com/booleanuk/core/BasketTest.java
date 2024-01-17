@@ -84,7 +84,7 @@ public class BasketTest {
         Product onionBagel = new Product("BGLO", inventory);
         basket.addToBasket(onionBagel);
 
-        Assertions.assertTrue(basket.removeProduct("BGLO"));
+        Assertions.assertTrue(basket.removeFromBasket("BGLO"));
     }
 
     @Test
@@ -95,7 +95,7 @@ public class BasketTest {
         Product onionBagel = new Product("BGLO", inventory);
         basket.addToBasket(onionBagel);
 
-        Assertions.assertFalse(basket.removeProduct("COFC"));
+        Assertions.assertFalse(basket.removeFromBasket("COFC"));
     }
 
     @Test
@@ -104,6 +104,6 @@ public class BasketTest {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
 
-        Assertions.assertTrue(basket.removeProduct("BGLO"));
+        Assertions.assertFalse(basket.removeFromBasket("BGLO"));
     }
 }

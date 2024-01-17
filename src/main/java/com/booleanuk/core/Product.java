@@ -20,4 +20,9 @@ public class Product {
     {
         return this.name;
     }
+
+    public String getSku()
+    {
+        return this.sku;
+    }
 }

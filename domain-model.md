@@ -7,10 +7,10 @@ I'd like to add a specific type of bagel to my basket.
 
 | Classes                | Methods                                       | Member Variables                      | Scenario                                         | Output/Result                                     |
 |------------------------|-----------------------------------------------|---------------------------------------|--------------------------------------------------|---------------------------------------------------|
-| Basket, Product, Bagel | Basket::addProduct(Product bagel)             | ArrayList<Product> products, int size | I want to add an onion bagel, basket is not full | Add Product to products, return true              |
+| Basket, Product, Bagel | Basket::addToBasket(Product bagel)            | ArrayList<Product> products, int size | I want to add an onion bagel, basket is not full | Add Product to products, return true              |
 |                        |                                               |                                       | I want to add a dirt bagel, basket is not full   | Show message saying type is invalid, return false |
 |                        |                                               |                                       | I want to add an onion bagel, basket is full     | Show message saying basket is full, return false  |
-|                        | Basket::addProduct(Product bagel, int amount) |                                       | I want to add multiple onion bagels              | Add multiple of same bagel to basket              |
+|                        | Basket::addToBasket(Product bagel, int amount) |                                       | I want to add multiple onion bagels              | Add multiple of same bagel to basket              |
 
 ````dtd
 2.
@@ -21,9 +21,9 @@ I'd like to remove a bagel from my basket.
 
 | Classes         | Methods                                          | Member Variables            | Scenario                                                                              | Output/Result                                        |
 |-----------------|--------------------------------------------------|-----------------------------|---------------------------------------------------------------------------------------|------------------------------------------------------|
-| Basket, Product | Basket::removeProduct(Product bagel)             | ArrayList<Product> products | I want to remove an existing basket item                                              | Product is removed, return true                      |
+| Basket, Product | Basket::removeFromBasket(Product bagel)          | ArrayList<Product> products | I want to remove an existing basket item                                              | Product is removed, return true                      |
 |                 |                                                  |                             | I want to remove a non-existing item                                                  | Show message saying product not in basket            |
-|                 | Basket::removeProduct(Product bagel, int amount) |                             | I want to remove a number of the same product. Equally or more products are in basket | Multiple of the same product is removed, return true |
+|                 | Basket::removeFromBasket(Product bagel, int amount) |                             | I want to remove a number of the same product. Equally or more products are in basket | Multiple of the same product is removed, return true |
 
 ````dtd
 3.
@@ -34,7 +34,7 @@ I'd like to know when my basket is full when I try adding an item beyond my bask
 
 | Classes         | Methods                             | Member Variables                      | Scenario                                     | Output/Result                      |
 |-----------------|-------------------------------------|---------------------------------------|----------------------------------------------|------------------------------------|
-| Basket, Product | Basket::addProduct(Product product) | ArrayList<Product> products, int size | I want to add an onion bagel, basket is full | Show message to user, return false |
+| Basket, Product | Basket::addToBasket(Product product) | ArrayList<Product> products, int size | I want to add an onion bagel, basket is full | Show message to user, return false |
 |                 |                                     |                                       |                                              |                                    |
 
 ````dtd
@@ -60,7 +60,7 @@ I'd like to know if I try to remove an item that doesn't exist in my basket.
 ````
 | Classes         | Methods                                | Member Variables             | Scenario                                             | Output/Result                      |
 |-----------------|----------------------------------------|------------------------------|------------------------------------------------------|------------------------------------|
-| Basket, Product | Basket::removeProduct(Product product) | ArrayList<Product> products  | I want to remove an onion bagel, it is not in basket | Show message to user, return false |
+| Basket, Product | Basket::removeFromBasket(Product product) | ArrayList<Product> products  | I want to remove an onion bagel, it is not in basket | Show message to user, return false |
 |                 |                                        |                              |                                                      |                                    |
 
 ````dtd
@@ -97,7 +97,7 @@ I'd like to be able to choose fillings for my bagel.
 
 | Classes          | Methods                             | Member Variables                    | Scenario                                                               | Output/Result                                                                                   |
 |------------------|-------------------------------------|-------------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| Product, Basket  | Basket::addProduct(Product product) | Basket::ArrayList<Product> products | I want to add bacon to my basket, there are 1 or more bagels in basket | Add bacon to basket, return true                                                                |
+| Product, Basket  | Basket::addToBasket(Product product) | Basket::ArrayList<Product> products | I want to add bacon to my basket, there are 1 or more bagels in basket | Add bacon to basket, return true                                                                |
 |                  |                                     |                                     | I want to add bacon to my basket, there are no bagels in basket        | Show message asking for confirmation, if yes, add to basket. return true. If no, no action done |
 |                  |                                     |                                     | I want to add invalid filling to my basket                             | Show a message saying filling not found                                                         |
 
@@ -123,5 +123,5 @@ I want customers to only be able to order things that we stock in our inventory.
 
 | Classes           | Methods                              | Member Variables  | Scenario                                     | Output/Result                                             |
 |-------------------|--------------------------------------|-------------------|----------------------------------------------|-----------------------------------------------------------|
-| Inventory, Basket | Basket::addProduct(Product product)  | Inventory::amount | Customer wants to order product in stock     | Add product as normal                                     |
+| Inventory, Basket | Basket::addToBasket(Product product)  | Inventory::amount | Customer wants to order product in stock     | Add product as normal                                     |
 |                   |                                      |                   | Customer wants to order product out of stock | Show message saying product is out of stock, return false |

@@ -48,4 +48,18 @@ public class Basket {
         System.out.println("Could not add product to basket, because product is null");
         return false;
     }
+
+    public boolean removeFromBasket(String sku)
+    {
+        for(Product item : basket)
+        {
+            if(item.getSku().equals(sku)) {
+                basket.remove(item);
+                System.out.println("Removed 1 " + item.name);
+                return true;
+            }
+        }
+        System.out.println("Product of SKU " + sku + " wasn't found in your basket!");
+        return false;
+    }
 }
