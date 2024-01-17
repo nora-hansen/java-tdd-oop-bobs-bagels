@@ -3,7 +3,14 @@ package com.booleanuk.core;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 public class BasketTest {
+
+    private final PrintStream standardOut = System.out;
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
     @Test
     public void testAddValidProduct()
     {
@@ -104,6 +111,18 @@ public class BasketTest {
         Basket basket = new Basket();
 
         Assertions.assertFalse(basket.removeFromBasket("BGLO"));
+    }
+
+    @Test
+    public void testRemoveProductShowsMessage()
+    {
+        System.setOut(new PrintStream(outputStreamCaptor));
+        Basket basket = new Basket();
+        basket.removeFromBasket("BGLO");
+        String expectedString = "Product of SKU BGLO wasn't found in your basket!\n";
+
+        Assertions.assertEquals(expectedString, outputStreamCaptor.toString());
+        System.setOut(standardOut);
     }
 
     @Test

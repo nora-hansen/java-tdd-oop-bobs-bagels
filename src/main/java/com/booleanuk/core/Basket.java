@@ -74,7 +74,7 @@ public class Basket {
                 return true;
             }
         }
-        System.out.println("Product of SKU " + sku + " wasn't found in your basket!");
+        System.out.print("Product of SKU " + sku + " wasn't found in your basket!\n");
         return false;
     }
 }
