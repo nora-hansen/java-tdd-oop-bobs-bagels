@@ -102,8 +102,57 @@ public class BasketTest {
     public void testRemoveEmptyBasket()
     {
         Basket basket = new Basket();
-        Inventory inventory = new Inventory();
 
         Assertions.assertFalse(basket.removeFromBasket("BGLO"));
+    }
+
+    @Test
+    public void testChangeBasketCapacitySuccess()
+    {
+        Basket basket = new Basket();
+
+        Assertions.assertTrue(basket.changeSize(50));
+        Assertions.assertTrue(basket.changeSize(100));
+        Assertions.assertTrue(basket.changeSize(1));
+    }
+
+    @Test
+    public void testChangeBasketCapacityInvalid()
+    {
+        Basket basket = new Basket();
+
+        Assertions.assertFalse(basket.changeSize(-50));
+        Assertions.assertFalse(basket.changeSize(-6));
+        Assertions.assertFalse(basket.changeSize(-1000));
+    }
+
+    @Test
+    public void testChangeBasketCapacityItemsAlreadyInBasketValid()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+
+        Assertions.assertTrue(basket.changeSize(50));
+        Assertions.assertTrue(basket.changeSize(100));
+        Assertions.assertTrue(basket.changeSize(3));
+    }
+
+    @Test
+    public void testChangeBasketCapacityItemsAlreadyInBasketNotValid()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+
+        Assertions.assertFalse(basket.changeSize(0));
+        Assertions.assertFalse(basket.changeSize(1));
+        Assertions.assertFalse(basket.changeSize(2));
     }
 }
