@@ -30,4 +30,9 @@ public class Product {
     {
         return this.sku;
     }
+
+    public String getVariant()
+    {
+        return this.variant;
+    }
 }

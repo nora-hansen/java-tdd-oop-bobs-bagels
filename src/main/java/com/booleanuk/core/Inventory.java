@@ -110,4 +110,13 @@ public class Inventory {
         return -1.0;
     }
 
+    public int getStock(String sku)
+    {
+        if(this.stock.get(sku) != null)
+        {
+            return this.stock.get(sku);
+        }
+        return -1;
+    }
+
 }

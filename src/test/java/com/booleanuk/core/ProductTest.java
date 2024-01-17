@@ -10,7 +10,7 @@ public class ProductTest {
         Inventory inventory = new Inventory();
         Product onionBagel = new Product("BGLO", inventory);
 
-        Assertions.assertEquals("Onion", onionBagel.getName());
+        Assertions.assertEquals("Bagel", onionBagel.getName());
     }
 
     @Test
@@ -20,5 +20,23 @@ public class ProductTest {
         Product onionBagel = new Product("INVL", inventory);
 
         Assertions.assertEquals("", onionBagel.getName());
+    }
+
+    @Test
+    public void testGetPriceOnionBagel()
+    {
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+
+        Assertions.assertEquals(0.49, onionBagel.getPrice());
+    }
+
+    @Test
+    public void testGetPriceInvalid()
+    {
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("INVL", inventory);
+
+        Assertions.assertEquals(-1.0, onionBagel.getPrice());
     }
 }
