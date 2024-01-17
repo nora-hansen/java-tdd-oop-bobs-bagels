@@ -5,7 +5,7 @@ public class Product {
     String name;
     Double price;
     String sku;
-    String type;
+    String variant;
 
     public Product (String sku, Inventory inv)
     {
@@ -13,7 +13,7 @@ public class Product {
         this.sku = sku;
         this.price = this.inventory.getPrice(sku);
         this.name = this.inventory.getName(sku);
-        this.type = this.inventory.getType(sku);
+        this.variant = this.inventory.getVariant(sku);
     }
 
     public String getName()
