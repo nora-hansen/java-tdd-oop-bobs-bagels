@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Basket {
     private ArrayList<Product> basket;
     private int size;
+    private double total;
 
     public Basket()
     {
         this.basket = new ArrayList<>();
         this.size = 10;
+        this.total = 0.0;
     }
 
     public boolean addToBasket(Product product)
@@ -18,6 +20,7 @@ public class Basket {
         {
             if(basket.size() < size) {
                 basket.add(product);
+                this.total += product.getPrice();
                 System.out.println("1 " + product.getName() + " has been added to your basket!");
                 return true;
             }   else {
@@ -62,6 +65,13 @@ public class Basket {
                 : "Basket already has more items in it than desired size!"));
         return false;
 
+    }
+
+    public double getTotal()
+    {
+        this.total = Math.round(this.total*100);
+        this.total = this.total/100;
+        return this.total;
     }
 
     public boolean removeFromBasket(String sku)

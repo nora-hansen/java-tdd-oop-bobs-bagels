@@ -21,6 +21,11 @@ public class Product {
         return this.name;
     }
 
+    public double getPrice()
+    {
+        return this.price;
+    }
+
     public String getSku()
     {
         return this.sku;
