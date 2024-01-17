@@ -5,11 +5,12 @@ So I can order a bagel before work,
 I'd like to add a specific type of bagel to my basket.
 ````
 
-| Classes                | Methods                           | Member Variables                      | Scenario                                         | Output/Result                                     |
-|------------------------|-----------------------------------|---------------------------------------|--------------------------------------------------|---------------------------------------------------|
-| Basket, Product, Bagel | Basket::addProduct(Product bagel) | ArrayList<Product> products, int size | I want to add an onion bagel, basket is not full | Add Product to products, return true              |
-|                        |                                   |                                       | I want to add a dirt bagel, basket is not full   | Show message saying type is invalid, return false |
-|                        |                                   |                                       | I want to add an onion bagel, basket is full     | Show message saying basket is full, return false  |
+| Classes                | Methods                                       | Member Variables                      | Scenario                                         | Output/Result                                     |
+|------------------------|-----------------------------------------------|---------------------------------------|--------------------------------------------------|---------------------------------------------------|
+| Basket, Product, Bagel | Basket::addProduct(Product bagel)             | ArrayList<Product> products, int size | I want to add an onion bagel, basket is not full | Add Product to products, return true              |
+|                        |                                               |                                       | I want to add a dirt bagel, basket is not full   | Show message saying type is invalid, return false |
+|                        |                                               |                                       | I want to add an onion bagel, basket is full     | Show message saying basket is full, return false  |
+|                        | Basket::addProduct(Product bagel, int amount) |                                       | I want to add multiple onion bagels              | Add multiple of same bagel to basket              |
 
 ````dtd
 2.
@@ -94,11 +95,11 @@ So I can shake things up a bit,
 I'd like to be able to choose fillings for my bagel.
 ````
 
-| Classes                   | Methods                             | Member Variables                    | Scenario                                                               | Output/Result                                                                                   |
-|---------------------------|-------------------------------------|-------------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
-| Product, Basket,  Filling | Basket::addProduct(Product product) | Basket::ArrayList<Product> products | I want to add bacon to my basket, there are 1 or more bagels in basket | Add bacon to basket, return true                                                                |
-|                           |                                     |                                     | I want to add bacon to my basket, there are no bagels in basket        | Show message asking for confirmation, if yes, add to basket. return true. If no, no action done |
-|                           |                                     |                                     | I want to add invalid filling to my basket                             | Show a message saying filling not found                                                         |
+| Classes          | Methods                             | Member Variables                    | Scenario                                                               | Output/Result                                                                                   |
+|------------------|-------------------------------------|-------------------------------------|------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| Product, Basket  | Basket::addProduct(Product product) | Basket::ArrayList<Product> products | I want to add bacon to my basket, there are 1 or more bagels in basket | Add bacon to basket, return true                                                                |
+|                  |                                     |                                     | I want to add bacon to my basket, there are no bagels in basket        | Show message asking for confirmation, if yes, add to basket. return true. If no, no action done |
+|                  |                                     |                                     | I want to add invalid filling to my basket                             | Show a message saying filling not found                                                         |
 
 ````dtd
 9.
