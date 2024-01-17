@@ -49,6 +49,21 @@ public class Basket {
         return false;
     }
 
+    public boolean changeSize(int size)
+    {
+        if(size >= 0 && size >= basket.size())
+        {
+            this.size = size;
+            return true;
+        }
+        System.out.println("Could not change basket size: "
+                + ((size < 0)
+                ? "Size cannot be negative!"
+                : "Basket already has more items in it than desired size!"));
+        return false;
+
+    }
+
     public boolean removeFromBasket(String sku)
     {
         for(Product item : basket)
