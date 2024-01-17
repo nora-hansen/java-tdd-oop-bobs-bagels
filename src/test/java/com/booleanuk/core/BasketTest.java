@@ -75,4 +75,35 @@ public class BasketTest {
         Assertions.assertNotNull(onionBagel);
         Assertions.assertFalse(basket.addToBasket(onionBagel, 3));
     }
+
+    @Test
+    public void testRemoveValidProduct()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+        basket.addToBasket(onionBagel);
+
+        Assertions.assertTrue(basket.removeProduct("BGLO"));
+    }
+
+    @Test
+    public void testRemoveProductNotInBasket()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+        basket.addToBasket(onionBagel);
+
+        Assertions.assertFalse(basket.removeProduct("COFC"));
+    }
+
+    @Test
+    public void testRemoveEmptyBasket()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+
+        Assertions.assertTrue(basket.removeProduct("BGLO"));
+    }
 }
