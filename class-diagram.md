@@ -9,11 +9,14 @@ classDiagram
     Basket : + changeCapacity(int) - boolean
     Basket : + getTotal() - Double
     Product : - name - String
+    Product : - type - String
     Product : - sku - String
     Product : + getPrice() - Double
     Product : + showPrice() - void
-    Inventory : - productPrices - Map
-    Inventory : - productInventory - Map
+    Inventory : - prices - Map
+    Inventory : - stock - Map
+    Inventory : - names - Map
+    Inventory : - types - Map
     Inventory : + restockAll() - boolean
     Inventory : + restock(String sku) - boolean
     Inventory : + changePrice(String sku, double price) - boolean

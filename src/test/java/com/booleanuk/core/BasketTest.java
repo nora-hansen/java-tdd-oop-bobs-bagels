@@ -8,7 +8,8 @@ public class BasketTest {
     public void testAddValidProduct()
     {
         Basket basket = new Basket();
-        Product onionBagel = new Product("BGLO");
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
 
         Assertions.assertNotNull(onionBagel);
         Assertions.assertTrue(basket.addToBasket(onionBagel));
@@ -18,7 +19,8 @@ public class BasketTest {
     public void testAddInvalidProduct()
     {
         Basket basket = new Basket();
-        Product invalidBagel = new Product("INVL");
+        Inventory inventory = new Inventory();
+        Product invalidBagel = new Product("INVL", inventory);
 
         Assertions.assertFalse(basket.addToBasket(invalidBagel));
     }
@@ -27,7 +29,9 @@ public class BasketTest {
     public void testAddValidProductBasketFull()
     {
         Basket basket = new Basket();
-        Product onionBagel = new Product("BGLO");
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
