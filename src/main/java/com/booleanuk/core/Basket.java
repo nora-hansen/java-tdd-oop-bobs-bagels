@@ -16,12 +16,13 @@ public class Basket {
     {
         if(product != null)
         {
-            if(basket.size() > size) {
+            if(basket.size() < size) {
                 basket.add(product);
                 System.out.println("1 " + product.getName() + " has been added to your basket!");
                 return true;
             }   else {
                 System.out.println("Could not add " + product.getName() + " to basket, your basket is full!");
+                return false;
             }
         }
         System.out.println("Could not add product to basket, because product is null");
