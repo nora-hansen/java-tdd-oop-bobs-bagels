@@ -45,4 +45,34 @@ public class BasketTest {
 
         Assertions.assertFalse(basket.addToBasket(onionBagel));
     }
+
+    @Test
+    public void testAddValidProductThreeTimes()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+
+        Assertions.assertNotNull(onionBagel);
+        Assertions.assertTrue(basket.addToBasket(onionBagel, 3));
+    }
+
+    @Test
+    public void testAddValidProductBasketTooSmall()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+
+        Assertions.assertNotNull(onionBagel);
+        Assertions.assertFalse(basket.addToBasket(onionBagel, 3));
+    }
 }
