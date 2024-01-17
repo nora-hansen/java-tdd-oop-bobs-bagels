@@ -174,4 +174,31 @@ public class BasketTest {
         Assertions.assertFalse(basket.changeSize(1));
         Assertions.assertFalse(basket.changeSize(2));
     }
+
+    @Test
+    public void testGetTotalCost()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+        Product coffeeLatte = new Product("COFL", inventory);
+        Product cheese = new Product("FILC", inventory);
+
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(coffeeLatte);
+        basket.addToBasket(cheese);
+
+        Assertions.assertEquals(1.9, basket.getTotal());
+
+        basket.addToBasket(onionBagel);
+        Assertions.assertEquals(2.39, basket.getTotal());
+    }
+
+    @Test
+    public void testGetTotalCostEmptyBasket()
+    {
+        Basket basket = new Basket();
+
+        Assertions.assertEquals(0.0, basket.getTotal());
+    }
 }
