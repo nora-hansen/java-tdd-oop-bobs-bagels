@@ -82,11 +82,11 @@ So I know what the damage will be,
 I'd like to know the cost of a bagel before I add it to my basket.
 ````
 
-| Classes         | Methods                                   | Member Variables | Scenario                                    | Output/Result                         |
-|-----------------|-------------------------------------------|------------------|---------------------------------------------|---------------------------------------|
-| Product, Basket | Product::showPrice(), Product::getPrice() | double price     | I want to know the cost of an onion bagel   | Show the price 0.49                   |
-|                 |                                           |                  | I want to know the cost of a plain bagel    | Show the price 0.39                   |
-|                 |                                           |                  | I want to know the cost on an invalid bagel | Show a message saying bagel not found |
+| Classes         | Methods                                            | Member Variables | Scenario                                                      | Output/Result                   |
+|-----------------|----------------------------------------------------|------------------|---------------------------------------------------------------|---------------------------------|
+| Product, Basket | Basket::showPrices(Inventory), Product::getPrice() | double price     | I want to know the cost of all products                       | Show the price of all products  |
+|                 | Basket::showPrices(String, Inventory)              |                  | I want to know the cost of a plain bagel                      | Show the price 0.39             |
+|                 | Basket::showPrices(String[], Inventory)            |                  | I want to know the cost on a plain bagel and capuccino coffee | Show the price of both products |
 
 ````dtd
 8.

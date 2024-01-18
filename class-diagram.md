@@ -9,6 +9,9 @@ classDiagram
     Basket : + removeFromBasket(Product, int) - boolean
     Basket : + changeSize(int) - boolean
     Basket : + getTotal() - Double
+    Basket : + showPrices(Inventory) - void
+    Basket : + showPrices(String, Inventory) - void
+    Basket : + showPrices(String[], Inventory) - void
     Product : - name - String
     Product : - variant - String
     Product : - sku - String
