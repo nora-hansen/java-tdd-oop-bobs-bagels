@@ -21,24 +21,24 @@ classDiagram
         - sku : String
         - price : double
         - inventory : Inventory
-        + getPrice() : Double
-        + getName() : String
-        + getSku() : String
-        + getVariant() : String
-        + showPrice() : void
+        + getPrice() Double
+        + getName() String
+        + getSku() String
+        + getVariant() String
+        + showPrice() void
         }
     class Inventory{    
         - prices : Map
         - stock : Map
         - names : Map
         - variants : Map
-        + restockAll() : boolean
-        + restock(String sku) : boolean
-        + changePrice(String sku, double price) : boolean
-        + getPrice(String sku) : Double
-        + getName(String sku) : String
-        + getVariant(String sku) : String
-        + getStock(String sku) : int
+        + restockAll() boolean
+        + restock(String sku) boolean
+        + changePrice(String sku, double price) boolean
+        + getPrice(String sku) Double
+        + getName(String sku) String
+        + getVariant(String sku) String
+        + getStock(String sku) int
         }
     class BobsBagels{
         - mainMenu : String

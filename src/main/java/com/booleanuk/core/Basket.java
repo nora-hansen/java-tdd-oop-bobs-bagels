@@ -88,6 +88,22 @@ public class Basket {
         return this.total;
     }
 
+    public double getDiscount()
+    {
+        double originalBagelCost = 0;
+        int bagelDiscount = 0;
+        int bagelCount = 0;
+        for(Product p : basket)
+        {
+            if(p.getName().equals("Bagel"))
+            {
+                bagelCount++;
+                originalBagelCost += p.getPrice();
+            }
+        }
+
+    }
+
     public boolean removeFromBasket(String sku)
     {
         for(Product item : basket)
