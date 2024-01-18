@@ -16,6 +16,10 @@ public class Basket {
 
     public boolean addToBasket(Product product)
     {
+        if(!this.checkInventory(product)) {
+            System.out.println("Product is out of stock");
+            return false;
+        }
         if(product != null && !product.getName().isEmpty())
         {
             if(basket.size() < size) {

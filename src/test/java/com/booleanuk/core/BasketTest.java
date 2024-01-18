@@ -278,6 +278,16 @@ public class BasketTest {
         ByteArrayInputStream testIn = new ByteArrayInputStream(("y".getBytes()));
         System.setIn(testIn);
         Assertions.assertTrue(basket.addToBasket(new Product("FILH", inventory)));
+    }
 
+    @Test
+    public void testAddToBasketOutOfStock()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+
+        inventory.setStock("BGLO", 0);
+        Assertions.assertFalse(basket.addToBasket(onionBagel));
     }
 }
