@@ -3,10 +3,10 @@ package com.booleanuk.core;
 import java.util.HashMap;
 
 public class Inventory {
-    HashMap<String, Double> prices;
-    HashMap<String, Integer> stock;
-    HashMap<String, String> names;
-    HashMap<String, String> variants;
+    private final HashMap<String, Double> prices;
+    private final HashMap<String, Integer> stock;
+    private final HashMap<String, String> names;
+    private final HashMap<String, String> variants;
 
     public Inventory()
     {

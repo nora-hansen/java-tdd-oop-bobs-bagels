@@ -201,4 +201,70 @@ public class BasketTest {
 
         Assertions.assertEquals(0.0, basket.getTotal());
     }
+
+    @Test
+    public void testSeePrices()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+
+        String expectedString = """
+                Prices:
+                Onion Bagel - 0.49
+                Plain Bagel - 0.39
+                Everything Bagel - 0.49
+                Sesame Bagel - 0.49
+                Black Coffee - 0.99
+                White Coffee - 1.19
+                Capuccino Coffee - 1.29
+                Latte Coffee - 1.29
+                Bacon Filling - 0.12
+                Egg Filling - 0.12
+                Cheese Filling - 0.12
+                Cream Cheese - 0.12
+                Smoked Salmon - 0.12
+                Ham - 0.12
+                """;
+
+        System.setOut(new PrintStream(outputStreamCaptor));
+        basket.showPrices(inventory);
+        Assertions.assertEquals(expectedString, outputStreamCaptor.toString());
+        System.setOut(standardOut);
+    }
+
+    @Test
+    public void testSeePriceOfOneItem()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+
+        String expectedString = """
+                Prices:
+                Latte Coffee - 1.29
+                """;
+
+        System.setOut(new PrintStream(outputStreamCaptor));
+        basket.showPrices("COFL", inventory);
+        Assertions.assertEquals(expectedString, outputStreamCaptor.toString());
+        System.setOut(standardOut);
+    }
+
+    @Test
+    public void testSeePriceOfMultipleItems()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+
+        String expectedString = """
+                Prices:
+                Latte Coffee - 1.29
+                Ham - 0.12
+                Everything Bagel - 0.49
+                """;
+
+        System.setOut(new PrintStream(outputStreamCaptor));
+        basket.showPrices(new String[]{"COFL", "FILH", "BGLE"}, inventory);
+        Assertions.assertEquals(expectedString, outputStreamCaptor.toString());
+        System.setOut(standardOut);
+    }
 }

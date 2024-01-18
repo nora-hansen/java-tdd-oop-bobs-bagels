@@ -3,7 +3,7 @@ package com.booleanuk.core;
 import java.util.ArrayList;
 
 public class Basket {
-    private ArrayList<Product> basket;
+    private final ArrayList<Product> basket;
     private int size;
     private double total;
 
@@ -16,18 +16,19 @@ public class Basket {
 
     public boolean addToBasket(Product product)
     {
-        if(product != null)
+        if(product != null && !product.getName().isEmpty())
         {
             if(basket.size() < size) {
                 basket.add(product);
                 this.total += product.getPrice();
-                System.out.println("1 " + product.getName() + " has been added to your basket!");
+                System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
                 return true;
             }   else {
-                System.out.println("Could not add " + product.getName() + " to basket, your basket is full!");
+                System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");
                 return false;
             }
         }
+        // Will change this to maybe exceptions? Maybe.
         System.out.println("Could not add product to basket, because product is null");
         return false;
     }
@@ -41,8 +42,8 @@ public class Basket {
                 {
                     basket.add(product);
                     System.out.println("1 " + product.getName() + " has been added to your basket!");
-                    return true;
                 }
+                return true;
             }   else {
                 System.out.println("Could not add " + product.getName() + " to basket, your basket is full!");
                 return false;
@@ -56,6 +57,7 @@ public class Basket {
     {
         if(size >= 0 && size >= basket.size())
         {
+            System.out.println("Basket size is now " + size);
             this.size = size;
             return true;
         }
@@ -80,7 +82,7 @@ public class Basket {
         {
             if(item.getSku().equals(sku)) {
                 basket.remove(item);
-                System.out.println("Removed 1 " + item.name);
+                System.out.println("Removed 1 " + item.getVariant() + " " + item.getName());
                 return true;
             }
         }

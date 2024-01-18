@@ -1,19 +1,18 @@
 package com.booleanuk.core;
 
 public class Product {
-    Inventory inventory;
-    String name;
-    Double price;
-    String sku;
-    String variant;
+    private final String name;
+    private final Double price;
+    private final String sku;
+    private final String variant;
+
 
     public Product (String sku, Inventory inv)
     {
-        this.inventory = inv;
         this.sku = sku;
-        this.price = this.inventory.getPrice(sku);
-        this.name = this.inventory.getName(sku);
-        this.variant = this.inventory.getVariant(sku);
+        this.price = inv.getPrice(sku);
+        this.name = inv.getName(sku);
+        this.variant = inv.getVariant(sku);
     }
 
     public String getName()
