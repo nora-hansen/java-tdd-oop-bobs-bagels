@@ -17,4 +17,14 @@ public class InventoryTest {
         Assertions.assertEquals("Filling", inventory.getName("FILH"));
         Assertions.assertEquals("", inventory.getName("INVL"));
     }
+
+    @Test
+    public void testGetProductString()
+    {
+        Inventory inventory = new Inventory();
+
+        String expectedString = "Onion Bagel - 0.49";
+
+        Assertions.assertEquals(expectedString, inventory.getProductString("BGLO"));
+    }
 }

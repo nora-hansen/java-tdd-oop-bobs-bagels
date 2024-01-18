@@ -119,4 +119,13 @@ public class Inventory {
         return -1;
     }
 
+    public String getProductString(String sku)
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getVariant(sku)).append(" ")
+                .append(getName(sku))
+                .append(" - ").append(getPrice(sku));
+        return sb.toString();
+    }
+
 }

@@ -89,4 +89,49 @@ public class Basket {
         System.out.print("Product of SKU " + sku + " wasn't found in your basket!\n");
         return false;
     }
+
+    public void showPrices(Inventory inv)
+    {
+        StringBuilder prices = new StringBuilder();
+
+        prices.append("Prices:\n");
+        prices.append(inv.getProductString("BGLO")).append("\n");
+        prices.append(inv.getProductString("BGLP")).append("\n");
+        prices.append(inv.getProductString("BGLE")).append("\n");
+        prices.append(inv.getProductString("BGLS")).append("\n");
+        prices.append(inv.getProductString("COFB")).append("\n");
+        prices.append(inv.getProductString("COFW")).append("\n");
+        prices.append(inv.getProductString("COFC")).append("\n");
+        prices.append(inv.getProductString("COFL")).append("\n");
+        prices.append(inv.getProductString("FILB")).append("\n");
+        prices.append(inv.getProductString("FILE")).append("\n");
+        prices.append(inv.getProductString("FILC")).append("\n");
+        prices.append(inv.getProductString("FILX")).append("\n");
+        prices.append(inv.getProductString("FILS")).append("\n");
+        prices.append(inv.getProductString("FILH")).append("\n");
+
+        System.out.print(prices.toString());
+    }
+
+    public void showPrices(String product, Inventory inv)
+    {
+        StringBuilder prices = new StringBuilder();
+
+        prices.append("Prices:\n");
+        prices.append(inv.getProductString(product)).append("\n");
+
+        System.out.print(prices.toString());
+    }
+
+    public void showPrices(String[] products, Inventory inv)
+    {
+        StringBuilder prices = new StringBuilder();
+
+        prices.append("Prices:\n");
+        for(String s : products) {
+            prices.append(inv.getProductString(s)).append("\n");
+        }
+
+        System.out.print(prices.toString());
+    }
 }

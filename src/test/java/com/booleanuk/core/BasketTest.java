@@ -3,6 +3,7 @@ package com.booleanuk.core;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
@@ -221,9 +222,9 @@ public class BasketTest {
                 Bacon Filling - 0.12
                 Egg Filling - 0.12
                 Cheese Filling - 0.12
-                Cream Cheese - 0.12
-                Smoked Salmon - 0.12
-                Ham - 0.12
+                Cream Cheese Filling - 0.12
+                Smoked Salmon Filling - 0.12
+                Ham Filling - 0.12
                 """;
 
         System.setOut(new PrintStream(outputStreamCaptor));
@@ -258,7 +259,7 @@ public class BasketTest {
         String expectedString = """
                 Prices:
                 Latte Coffee - 1.29
-                Ham - 0.12
+                Ham Filling - 0.12
                 Everything Bagel - 0.49
                 """;
 
@@ -266,5 +267,17 @@ public class BasketTest {
         basket.showPrices(new String[]{"COFL", "FILH", "BGLE"}, inventory);
         Assertions.assertEquals(expectedString, outputStreamCaptor.toString());
         System.setOut(standardOut);
+    }
+
+    @Test
+    public void testAddFillingsNoBagel()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+
+        ByteArrayInputStream testIn = new ByteArrayInputStream(("y".getBytes()));
+        System.setIn(testIn);
+        Assertions.assertTrue(basket.addToBasket(new Product("FILH", inventory)));
+
     }
 }
