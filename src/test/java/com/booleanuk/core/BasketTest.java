@@ -290,4 +290,57 @@ public class BasketTest {
         inventory.setStock("BGLO", 0);
         Assertions.assertFalse(basket.addToBasket(inventory, onionBagel));
     }
+
+    @Test
+    public void testSixBagelDiscount()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        Assertions.assertEquals(2.49, basket.getTotal());
+    }
+
+    @Test
+    public void testTwelveBagelDiscount()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+
+        Assertions.assertEquals(3.99, basket.getTotal());
+    }
+
+    @Test
+    public void testCoffeeBagelDiscount()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Product onionBagel = new Product("BGLO", inventory);
+        Product blackCoffee = new Product("COFB", inventory);
+
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, blackCoffee);
+
+        Assertions.assertEquals(1.25, basket.getTotal());
+    }
 }
