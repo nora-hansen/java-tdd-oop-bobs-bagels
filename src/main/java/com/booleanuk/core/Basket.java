@@ -14,19 +14,23 @@ public class Basket {
         this.total = 0.0;
     }
 
-    public boolean addToBasket(Product product)
+    public boolean addToBasket(Inventory inv, Product product)
     {
-        if(!this.checkInventory(product)) {
+        // Check if product stock is more than zero
+        if(!this.checkStock(inv, product.getSku())) {
             System.out.println("Product is out of stock");
             return false;
         }
-        if(product != null && !product.getName().isEmpty())
+        // Check if the product name is valid
+        if(!product.getName().isEmpty())
         {
-            if(basket.size() < size) {
+            if(basket.size() < size) {  // Is basket full?
                 basket.add(product);
-                this.total += product.getPrice();
+                this.total += product.getPrice();   // Add cost to total
+
                 System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
                 return true;
+
             }   else {
                 System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");
                 return false;
@@ -45,8 +49,8 @@ public class Basket {
                 for(int i = 0; i < amount; i++)
                 {
                     basket.add(product);
-                    System.out.println("1 " + product.getName() + " has been added to your basket!");
                 }
+                System.out.println(amount + " " + product.getName() + "s has been added to your basket!");
                 return true;
             }   else {
                 System.out.println("Could not add " + product.getName() + " to basket, your basket is full!");
@@ -70,7 +74,11 @@ public class Basket {
                 ? "Size cannot be negative!"
                 : "Basket already has more items in it than desired size!"));
         return false;
+    }
 
+    public boolean checkStock(Inventory inv, String sku)
+    {
+        return inv.getStock(sku) > 0;
     }
 
     public double getTotal()
@@ -96,35 +104,31 @@ public class Basket {
 
     public void showPrices(Inventory inv)
     {
-        StringBuilder prices = new StringBuilder();
+        String prices = "Prices:\n" +
+                inv.getProductString("BGLO") + "\n" +
+                inv.getProductString("BGLP") + "\n" +
+                inv.getProductString("BGLE") + "\n" +
+                inv.getProductString("BGLS") + "\n" +
+                inv.getProductString("COFB") + "\n" +
+                inv.getProductString("COFW") + "\n" +
+                inv.getProductString("COFC") + "\n" +
+                inv.getProductString("COFL") + "\n" +
+                inv.getProductString("FILB") + "\n" +
+                inv.getProductString("FILE") + "\n" +
+                inv.getProductString("FILC") + "\n" +
+                inv.getProductString("FILX") + "\n" +
+                inv.getProductString("FILS") + "\n" +
+                inv.getProductString("FILH") + "\n";
 
-        prices.append("Prices:\n");
-        prices.append(inv.getProductString("BGLO")).append("\n");
-        prices.append(inv.getProductString("BGLP")).append("\n");
-        prices.append(inv.getProductString("BGLE")).append("\n");
-        prices.append(inv.getProductString("BGLS")).append("\n");
-        prices.append(inv.getProductString("COFB")).append("\n");
-        prices.append(inv.getProductString("COFW")).append("\n");
-        prices.append(inv.getProductString("COFC")).append("\n");
-        prices.append(inv.getProductString("COFL")).append("\n");
-        prices.append(inv.getProductString("FILB")).append("\n");
-        prices.append(inv.getProductString("FILE")).append("\n");
-        prices.append(inv.getProductString("FILC")).append("\n");
-        prices.append(inv.getProductString("FILX")).append("\n");
-        prices.append(inv.getProductString("FILS")).append("\n");
-        prices.append(inv.getProductString("FILH")).append("\n");
-
-        System.out.print(prices.toString());
+        System.out.print(prices);
     }
 
     public void showPrices(String product, Inventory inv)
     {
-        StringBuilder prices = new StringBuilder();
+        String prices = "Prices:\n" +
+                inv.getProductString(product) + "\n";
 
-        prices.append("Prices:\n");
-        prices.append(inv.getProductString(product)).append("\n");
-
-        System.out.print(prices.toString());
+        System.out.print(prices);
     }
 
     public void showPrices(String[] products, Inventory inv)

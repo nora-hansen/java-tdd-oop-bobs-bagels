@@ -72,7 +72,7 @@ public class Inventory {
                 put("BGLS", "Sesame");
                 put("COFB", "Black");
                 put("COFW", "White");
-                put("COFC", "Capuccino");
+                put("COFC", "Cappuccino");
                 put("COFL", "Latte");
                 put("FILB", "Bacon");
                 put("FILE", "Egg");
@@ -119,13 +119,20 @@ public class Inventory {
         return -1;
     }
 
+    public void setStock(String sku, int amount)
+    {
+        if(this.stock.get(sku) != null)
+        {
+            this.stock.put(sku, amount);
+        }
+    }
+
+
     public String getProductString(String sku)
     {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getVariant(sku)).append(" ")
-                .append(getName(sku))
-                .append(" - ").append(getPrice(sku));
-        return sb.toString();
+        return getVariant(sku) + " " +
+                getName(sku) +
+                " - " + getPrice(sku);
     }
 
 }
