@@ -1,37 +1,53 @@
 ````mermaid
 classDiagram
-    Basket : - product - ArrayList< Product >
-    Basket : - size - int
-    Basket : - total - double
-    Basket : + addToBasket(Product) - boolean
-    Basket : + addToBasket(Product, int) - boolean
-    Basket : + removeFromBasket(Product) - boolean
-    Basket : + removeFromBasket(Product, int) - boolean
-    Basket : + changeSize(int) - boolean
-    Basket : + getTotal() - Double
-    Basket : + showPrices(Inventory) - void
-    Basket : + showPrices(String, Inventory) - void
-    Basket : + showPrices(String[], Inventory) - void
-    Product : - name - String
-    Product : - variant - String
-    Product : - sku - String
-    Product : - price - double
-    Product : - inventory - Inventory
-    Product : + getPrice() - Double
-    Product : + getName() - String
-    Product : + getSku() - String
-    Product : + getVariant() - String
-    Product : + showPrice() - void
-    Inventory : - prices - Map
-    Inventory : - stock - Map
-    Inventory : - names - Map
-    Inventory : - variants - Map
-    Inventory : + restockAll() - boolean
-    Inventory : + restock(String sku) - boolean
-    Inventory : + changePrice(String sku, double price) - boolean
-    Inventory : + getPrice(String sku) - Double
-    Inventory : + getName(String sku) - String
-    Inventory : + getVariant(String sku) - String
-    Inventory : + getStock(String sku) - int
-
+    class Basket{    
+        - product ArrayList < Product >
+        - size int
+        - total double
+        + addToBasket(Product) boolean
+        + addToBasket(Product, int) boolean
+        + removeFromBasket(Product) boolean
+        + removeFromBasket(Product, int) boolean
+        + changeSize(int) boolean
+        + getTotal() Double
+        + showPrices(Inventory) void
+        + showPrices(String, Inventory) void
+        + showPrices(String[], Inventory) void
+        }
+    class Product{    
+        - name String
+        - variant String
+        - sku String
+        - price double
+        - inventory Inventory
+        + getPrice() Double
+        + getName() String
+        + getSku() String
+        + getVariant() String
+        + showPrice() void
+        }
+    class Inventory{    
+        - prices Map
+        - stock Map
+        - names Map
+        - variants Map
+        + restockAll() boolean
+        + restock(String sku) boolean
+        + changePrice(String sku, double price) boolean
+        + getPrice(String sku) Double
+        + getName(String sku) String
+        + getVariant(String sku) String
+        + getStock(String sku) int}
+    class BobsBagels{
+        - mainMenu String
+        - managerMenu String
+        - shopMenu String
+        - sc Scanner
+        - inventory Inventory
+        - basket Basket
+    }
+    Basket ..> Product
+    Product ..> Inventory
+    BobsBagels ..> Basket
+    BobsBagels ..> Inventory
 ````
