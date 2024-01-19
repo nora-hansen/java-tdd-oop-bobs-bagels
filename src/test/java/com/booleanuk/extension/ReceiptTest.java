@@ -20,7 +20,7 @@ public class ReceiptTest {
         String expectedString = """
                   ~~~ Bob's Bagels ~~~
                 
-                   2024-01-19 10:31:50
+                  2024-01-19  10:31:50
                 
                 ------------------------
                 
