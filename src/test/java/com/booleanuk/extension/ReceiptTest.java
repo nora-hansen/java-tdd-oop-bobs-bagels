@@ -7,18 +7,18 @@ public class ReceiptTest {
     @Test
     public void testGenerateReceipt()
     {
-        Basket basket = new Basket();
         Inventory inventory = new Inventory();
+        Basket basket = new Basket(inventory);
         Product onionBagel = new Product("BGLO", inventory);
         Product whiteCoffee = new Product("COFW", inventory);
         Product cheese = new Product("FILC", inventory);
-        basket.addToBasket(inventory, onionBagel);
-        basket.addToBasket(inventory, onionBagel);
-        basket.addToBasket(inventory, onionBagel);
-        basket.addToBasket(inventory, onionBagel);
-        basket.addToBasket(inventory, cheese);
-        basket.addToBasket(inventory, cheese);
-        basket.addToBasket(inventory, whiteCoffee);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(cheese);
+        basket.addToBasket(cheese);
+        basket.addToBasket(whiteCoffee);
         Receipt receipt = new Receipt(basket, inventory);
 
         String expectedString = """
@@ -31,12 +31,12 @@ public class ReceiptTest {
                         
                 ------------------------------
 
-                White Coffee            1 1.19
-                Onion Bagel             4 1.96
-                Cheese Filling          2 0.24
+                White Coffee           1 \u00A31.19
+                Onion Bagel            4 \u00A31.96
+                Cheese Filling         2 \u00A30.24
 
                 ------------------------------
-                Total                     3.39
+                Total                    \u00A33.39
 
 
                           Thank you         \s
@@ -47,8 +47,8 @@ public class ReceiptTest {
     @Test
     public void testGenerateEmptyReceipt()
     {
-        Basket basket = new Basket();
         Inventory inventory = new Inventory();
+        Basket basket = new Basket(inventory);
         Receipt receipt = new Receipt(basket, inventory);
 
         String expectedString = """
@@ -63,7 +63,7 @@ public class ReceiptTest {
 
 
                 ------------------------------
-                Total                      0.0
+                Total                     \u00A30.0
 
 
                           Thank you         \s

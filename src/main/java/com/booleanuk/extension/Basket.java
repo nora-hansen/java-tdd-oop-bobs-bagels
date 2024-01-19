@@ -4,23 +4,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Basket {
+    Inventory inventory;
     private final ArrayList<Product> basket;
-    private final HashMap<Product, Integer> discountedItems;
+    private final HashMap<Product, Integer[]> discountedItems;
+    private final HashMap<String, Integer> productCounts;
     private int size;
     private double total;
 
-    public Basket()
+    public Basket(Inventory inventory)
     {
+        this.inventory = inventory;
         this.basket = new ArrayList<>();
         this.discountedItems = new HashMap<>();
+        this.productCounts = new HashMap<>();
         this.size = 10;
         this.total = 0.0;
     }
 
-    public boolean addToBasket(Inventory inv, Product product)
+    public boolean addToBasket(Product product)
     {
         // Check if product stock is more than zero
-        if(!this.checkStock(inv, product.getSku())) {
+        if(!this.checkStock(product.getSku())) {
             System.out.println("Product is out of stock");
             return false;
         }
@@ -29,8 +33,9 @@ public class Basket {
         {
             if(basket.size() < size) {  // Is basket full?
                 basket.add(product);
+                //addToCount(product.ge);
                 this.total += product.getPrice();   // Add cost to total
-                inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
+                this.inventory.setStock(product.getSku(), this.inventory.getStock(product.getSku()) -1);
 
                 System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
                 return true;
@@ -44,9 +49,9 @@ public class Basket {
         return false;
     }
 
-    public boolean addToBasket(Product product, int amount, Inventory inv)
+    public boolean addToBasket(Product product, int amount)
     {
-        if(!this.checkStock(inv, product.getSku())) {
+        if(!this.checkStock(product.getSku())) {
             System.out.println("Product is out of stock");
             return false;
         }
@@ -56,7 +61,7 @@ public class Basket {
                 for(int i = 0; i < amount; i++)
                 {
                     basket.add(product);
-                    inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
+                    this.inventory.setStock(product.getSku(), this.inventory.getStock(product.getSku()) -1);
                 }
                 System.out.println(amount + " " + product.getName() + "s has been added to your basket!");
                 return true;
@@ -84,9 +89,9 @@ public class Basket {
         return false;
     }
 
-    public boolean checkStock(Inventory inv, String sku)
+    public boolean checkStock(String sku)
     {
-        return inv.getStock(sku) > 0;
+        return this.inventory.getStock(sku) > 0;
     }
 
     public ArrayList<Product> getBasket()
@@ -101,14 +106,27 @@ public class Basket {
         return this.total;
     }
 
+    public void addToCount(String sku)
+    {
+        if(this.productCounts.containsKey(sku))
+        {
+            productCounts.put(sku, productCounts.get(sku) + 1);
+        }   else {
+            productCounts.put(sku, 1);
+        }
+    }
+
     public double getBagelDiscount()
     {
-        int bagelCount = 0;
         double discount = 0;
+        int[] priceDiscountNewPrice = new int[3];
 
-        for(Product p : basket)
+        for(String sku : productCounts.keySet())
         {
-
+            if(productCounts.get(sku) >= 12)
+            {
+                priceDiscountNewPrice[0] = 1;
+            }
         }
 
         return discount;
@@ -128,42 +146,42 @@ public class Basket {
         return false;
     }
 
-    public void showPrices(Inventory inv)
+    public void showPrices()
     {
         String prices = "Prices:\n" +
-                inv.getProductString("BGLO") + "\n" +
-                inv.getProductString("BGLP") + "\n" +
-                inv.getProductString("BGLE") + "\n" +
-                inv.getProductString("BGLS") + "\n" +
-                inv.getProductString("COFB") + "\n" +
-                inv.getProductString("COFW") + "\n" +
-                inv.getProductString("COFC") + "\n" +
-                inv.getProductString("COFL") + "\n" +
-                inv.getProductString("FILB") + "\n" +
-                inv.getProductString("FILE") + "\n" +
-                inv.getProductString("FILC") + "\n" +
-                inv.getProductString("FILX") + "\n" +
-                inv.getProductString("FILS") + "\n" +
-                inv.getProductString("FILH") + "\n";
+                this.inventory.getProductString("BGLO") + "\n" +
+                this.inventory.getProductString("BGLP") + "\n" +
+                this.inventory.getProductString("BGLE") + "\n" +
+                this.inventory.getProductString("BGLS") + "\n" +
+                this.inventory.getProductString("COFB") + "\n" +
+                this.inventory.getProductString("COFW") + "\n" +
+                this.inventory.getProductString("COFC") + "\n" +
+                this.inventory.getProductString("COFL") + "\n" +
+                this.inventory.getProductString("FILB") + "\n" +
+                this.inventory.getProductString("FILE") + "\n" +
+                this.inventory.getProductString("FILC") + "\n" +
+                this.inventory.getProductString("FILX") + "\n" +
+                this.inventory.getProductString("FILS") + "\n" +
+                this.inventory.getProductString("FILH") + "\n";
 
         System.out.print(prices);
     }
 
-    public void showPrices(String product, Inventory inv)
+    public void showPrices(String product)
     {
         String prices = "Prices:\n" +
-                inv.getProductString(product) + "\n";
+                this.inventory.getProductString(product) + "\n";
 
         System.out.print(prices);
     }
 
-    public void showPrices(String[] products, Inventory inv)
+    public void showPrices(String[] products)
     {
         StringBuilder prices = new StringBuilder();
 
         prices.append("Prices:\n");
         for(String s : products) {
-            prices.append(inv.getProductString(s)).append("\n");
+            prices.append(this.inventory.getProductString(s)).append("\n");
         }
 
         System.out.print(prices);

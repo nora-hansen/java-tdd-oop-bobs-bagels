@@ -100,7 +100,7 @@ public class Receipt {
 
         for(String key : productCounts.keySet())    {
             String nameString = inventory.getVariant(key) + " " + inventory.getName(key);
-            String numbersString = productCounts.get(key) + " " + inventory.getPrice(key) * productCounts.get(key);
+            String numbersString = productCounts.get(key) + " \u00A3" + inventory.getPrice(key) * productCounts.get(key);
 
             productString.append(generateMidSpacedString(nameString, numbersString));
         }
@@ -111,7 +111,7 @@ public class Receipt {
     public String generateTotalString()
     {
         String total = "Total";
-        String numbers = "" + basket.getTotal();
+        String numbers = "\u00A3" + basket.getTotal();
         return generateMidSpacedString(total, numbers);
     }
 

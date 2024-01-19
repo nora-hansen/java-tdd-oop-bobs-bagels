@@ -151,6 +151,6 @@ public class Basket {
             prices.append(inv.getProductString(s)).append("\n");
         }
 
-        System.out.print(prices.toString());
+        System.out.print(prices);
     }
 }
