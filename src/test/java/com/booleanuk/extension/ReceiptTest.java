@@ -43,4 +43,31 @@ public class ReceiptTest {
                        for your order!      \s""";
         Assertions.assertEquals(expectedString, receipt.generateReceipt());
     }
+
+    @Test
+    public void testGenerateEmptyReceipt()
+    {
+        Basket basket = new Basket();
+        Inventory inventory = new Inventory();
+        Receipt receipt = new Receipt(basket, inventory);
+
+        String expectedString = """
+                     ~~~ Bob's Bagels ~~~    \s
+                                  
+                \s\s\s\s\s""";
+        expectedString += receipt.getDateTime();
+        expectedString += """
+                    \s
+                        
+                ------------------------------
+
+
+                ------------------------------
+                Total                      0.0
+
+
+                          Thank you         \s
+                       for your order!      \s""";
+        Assertions.assertEquals(expectedString, receipt.generateReceipt());
+    }
 }
