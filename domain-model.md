@@ -148,6 +148,9 @@ I want customers to only be able to order things that we stock in our inventory.
 | Inventory, Basket | Basket::addToBasket(Product product)  | Inventory::amount | Customer wants to order product in stock     | Add product as normal                                     |
 |                   | Basket::checkStock(Inventory, String) |                   | Customer wants to order product out of stock | Show message saying product is out of stock, return false |
 
+
+## Extension
+
 ````dtd
 11.
 As a manager,
@@ -159,3 +162,15 @@ I want our customer to receive discounts for purchasing more of our products
 |-------------------|--------------------------------------|------------------|----------|---------------|
 | Basket, Inventory | Basket::getDiscount()                |                  |          |               |
 |                   | Basket::addToBasket(Product product) |                  |          |               |
+
+````dtd
+12. 
+As a customer,
+So I can keep track of my spendings,
+I want to get a receipt for my purchase
+````
+
+| Classes         | Methods                  | Member Variables | Scenario                  | Output/Result                                              |
+|-----------------|--------------------------|------------------|---------------------------|------------------------------------------------------------|
+| Basket, Receipt | Receipt::generateReceipt | Basket basket    | I have items in my basket | A receipt showing the prices of items and total is printed |
+|                 |                          |                  |                           |                                                            |
