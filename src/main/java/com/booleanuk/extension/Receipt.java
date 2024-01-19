@@ -1,10 +1,8 @@
 package com.booleanuk.extension;
 
-import java.sql.Array;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Receipt {
@@ -15,8 +13,7 @@ public class Receipt {
     private final DateTimeFormatter format;
     private final String topText;
     private final String[] bottomText;
-    private ArrayList<String> productStrings;
-    private HashMap<String, Integer> productCounts;
+    private final HashMap<String, Integer> productCounts;
     int width = 30;
     public Receipt(Basket basket, Inventory inventory)
     {
@@ -27,26 +24,10 @@ public class Receipt {
         this.inventory = inventory;
         this.topText = "~~~ Bob's Bagels ~~~";
         this.bottomText = new String[]{"Thank you", "for your order!"};
-        this.productStrings = new ArrayList<>();
         this.productCounts = new HashMap<>();
         countProducts();
     }
 
-    /*
-          ~~~ Bob's Bagels ~~~
-
-          2024-01-19  10:31:50
-
-        ------------------------
-
-        Onion Bagel     5 £2.45
-
-        ------------------------
-        Total             £2.45
-
-                Thank you
-             for your order!
-     */
     public String generateReceipt()
     {
         // Top text
@@ -115,16 +96,11 @@ public class Receipt {
 
     public String generateProductStrings()
     {
-        String nameString = "";
-        String numbersString = "";
-        ArrayList<String[]> productStrings = new ArrayList<>();
-        int padding;
-
         StringBuilder productString = new StringBuilder();
 
         for(String key : productCounts.keySet())    {
-            nameString = inventory.getVariant(key) + " " + inventory.getName(key);
-            numbersString = productCounts.get(key) + " " + inventory.getPrice(key) * productCounts.get(key);
+            String nameString = inventory.getVariant(key) + " " + inventory.getName(key);
+            String numbersString = productCounts.get(key) + " " + inventory.getPrice(key) * productCounts.get(key);
 
             productString.append(generateMidSpacedString(nameString, numbersString));
         }
