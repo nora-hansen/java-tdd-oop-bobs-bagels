@@ -10,12 +10,16 @@ public class ReceiptTest {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
         Product onionBagel = new Product("BGLO", inventory);
+        Product whiteCoffee = new Product("COFW", inventory);
+        Product cheese = new Product("FILC", inventory);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
-        basket.addToBasket(inventory, onionBagel);
-        Receipt receipt = new Receipt(basket);
+        basket.addToBasket(inventory, cheese);
+        basket.addToBasket(inventory, cheese);
+        basket.addToBasket(inventory, whiteCoffee);
+        Receipt receipt = new Receipt(basket, inventory);
 
         String expectedString = """
                   ~~~ Bob's Bagels ~~~
@@ -24,10 +28,10 @@ public class ReceiptTest {
                 
                 ------------------------
                 
-                Onion Bagel     5 £2.45
+                Onion Bagel     5  2.45
                 
                 ------------------------
-                Total             £2.45
+                Total              2.45
                 
                         Thank you
                      for your order!

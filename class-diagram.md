@@ -50,7 +50,18 @@ classDiagram
     }
     class Receipt{
         - receipt : String
+        - basket : Basket
+        - date : LocalDate
+        - time : LocalTime
+        - format : DateTimeFormatter
+        - topText : String
+        - bottomText : String[]
+        - productStrings : ArrayList< String >
         + generateReceipt() : String
+        + getPadding(String) : int
+        + getDashedLine : String
+        + getDateTime : String
+        + generateProductStrings : void
     }
     Basket ..> Product
     Product ..> Inventory

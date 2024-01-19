@@ -81,6 +81,11 @@ public class Basket {
         return inv.getStock(sku) > 0;
     }
 
+    public ArrayList<Product> getBasket()
+    {
+        return this.basket;
+    }
+
     public double getTotal()
     {
         this.total = Math.round(this.total*100);
