@@ -2,9 +2,11 @@
 classDiagram
     class Basket{    
         - product : ArrayList < Product >
+        - inventory : Inventory
         - size : int
         - total : double
-        - discount : double
+        - discountedItems : HashMap< String, Double[] >
+        - productCounts HashMap< String, Integer >
         + addToBasket(Product) boolean
         + addToBasket(Product, int) boolean
         + removeFromBasket(Product) boolean
@@ -14,6 +16,7 @@ classDiagram
         + showPrices() void
         + showPrices(String) void
         + showPrices(String[]) void
+        + getBagelDiscount() : double
         }
     class Product{    
         - name : String
@@ -28,17 +31,19 @@ classDiagram
         + showPrice() void
         }
     class Inventory{    
-        - prices : Map
-        - stock : Map
-        - names : Map
-        - variants : Map
-        + restockAll() boolean
-        + restock(String sku) boolean
-        + changePrice(String sku, double price) boolean
-        + getPrice(String sku) Double
-        + getName(String sku) String
-        + getVariant(String sku) String
-        + getStock(String sku) int
+        - prices : HashMap< String, Double >
+        - stock : HashMap< String, Integer >
+        - names : HashMap< String, String >
+        - variants : HashMap< String, String >
+        + restockAll() : boolean
+        + restock(String sku) : boolean
+        + changePrice(String sku, double price) : boolean
+        + getPrice(String sku) : Double
+        + getName(String sku) : String
+        + getVariant(String sku) : String
+        + getStock(String sku) : int
+        + setStock(String sku, int amount) : void
+        + getProductString(String sku) : String
         }
     class BobsBagels{
         - mainMenu : String
@@ -47,6 +52,9 @@ classDiagram
         - sc : Scanner
         - inventory : Inventory
         - basket : Basket
+        + showMenu() : void
+        + showManagerMenu() : void
+        + showShopMenu() : void
     }
     class Receipt{
         - receipt : String
@@ -56,7 +64,8 @@ classDiagram
         - format : DateTimeFormatter
         - topText : String
         - bottomText : String[]
-        - productStrings : ArrayList< String >
+        - productCounts : HashMap< String, Integer >
+        - width : int
         + generateReceipt() : String
         + getPadding(String) : int
         + getDashedLine : String

@@ -38,6 +38,7 @@ public class Basket {
                 this.inventory.setStock(product.getSku(), this.inventory.getStock(product.getSku()) -1);
 
                 System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
+                System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
                 return true;
             }   else {
                 System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");

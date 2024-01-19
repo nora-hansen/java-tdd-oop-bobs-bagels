@@ -158,10 +158,10 @@ So our prices will look cheaper and boost sales,
 I want our customer to receive discounts for purchasing more of our products
 ````
 
-| Classes           | Methods                              | Member Variables | Scenario | Output/Result |
-|-------------------|--------------------------------------|------------------|----------|---------------|
-| Basket, Inventory | Basket::getDiscount()                |                  |          |               |
-|                   | Basket::addToBasket(Product product) |                  |          |               |
+| Classes           | Methods                              | Member Variables               | Scenario | Output/Result |
+|-------------------|--------------------------------------|--------------------------------|----------|---------------|
+| Basket, Inventory | Basket::getBagelDiscount()           | double discount                |          |               |
+|                   | Basket::addToBasket(Product product) | priceDiscountNewPrice Double[] |          |               |
 
 ````dtd
 12. 
