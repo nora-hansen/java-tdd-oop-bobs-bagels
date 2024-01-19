@@ -309,6 +309,7 @@ public class BasketTest {
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
+        basket.getBagelDiscount();
         Assertions.assertEquals(2.49, basket.getTotal());
     }
 
@@ -329,8 +330,9 @@ public class BasketTest {
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
-        basket.addToBasket(onionBagel);
-        basket.addToBasket(onionBagel);
+        //  Change stock, tests ran out of Onion Bagel :(
+        //  Then add two more :)
+        basket.getBagelDiscount();
 
         Assertions.assertEquals(3.99, basket.getTotal());
     }

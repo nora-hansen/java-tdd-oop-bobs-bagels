@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class Basket {
     Inventory inventory;
     private final ArrayList<Product> basket;
-    private final HashMap<Product, Integer[]> discountedItems;
+    private final HashMap<String, Double[]> discountedItems;
     private final HashMap<String, Integer> productCounts;
     private int size;
     private double total;
@@ -33,7 +33,7 @@ public class Basket {
         {
             if(basket.size() < size) {  // Is basket full?
                 basket.add(product);
-                //addToCount(product.ge);
+                addToCount(product.getSku());
                 this.total += product.getPrice();   // Add cost to total
                 this.inventory.setStock(product.getSku(), this.inventory.getStock(product.getSku()) -1);
 
@@ -61,6 +61,7 @@ public class Basket {
                 for(int i = 0; i < amount; i++)
                 {
                     basket.add(product);
+                    addToCount(product.getSku());
                     this.inventory.setStock(product.getSku(), this.inventory.getStock(product.getSku()) -1);
                 }
                 System.out.println(amount + " " + product.getName() + "s has been added to your basket!");
@@ -116,18 +117,41 @@ public class Basket {
         }
     }
 
+    /*
+    TODO
+         Apply discount to total
+         Add to receipt
+         Take Plain Bagel into account
+         Coffee + Bagel discount (how do they combine?)
+     */
     public double getBagelDiscount()
     {
-        double discount = 0;
-        int[] priceDiscountNewPrice = new int[3];
+        double discount = 0.0;
+        Double[] priceDiscountNewPrice = new Double[] {0.0,0.0,0.0};
 
         for(String sku : productCounts.keySet())
         {
-            if(productCounts.get(sku) >= 12)
+            while(productCounts.get(sku) >= 12)
             {
-                priceDiscountNewPrice[0] = 1;
+                priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 12.0;
+                priceDiscountNewPrice[2] += 3.99d;
+                priceDiscountNewPrice[1] = priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
+                productCounts.put(sku, productCounts.get(sku) - 12);
             }
+            while(productCounts.get(sku) >= 6)
+            {
+                priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 6.0;
+                priceDiscountNewPrice[2] += 2.45d;
+                priceDiscountNewPrice[1] = priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
+                productCounts.put(sku, productCounts.get(sku) - 6);
+            }
+            if(priceDiscountNewPrice[2] > 0)
+            {
+                discountedItems.put(sku, priceDiscountNewPrice);
+            }
+            System.out.println("OUTPUT " + this.inventory.getPrice(sku) + " " + priceDiscountNewPrice[1] + " " + priceDiscountNewPrice[2] );
         }
+        System.out.println("OUTPUT " + priceDiscountNewPrice[0] + " " + priceDiscountNewPrice[1] + " " + priceDiscountNewPrice[2] );
 
         return discount;
     }
