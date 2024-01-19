@@ -72,7 +72,7 @@ public class Receipt {
 
     public String getDashedLine()
     {
-                          // For self reference: Math.max(x, y) returns the bigger number
+        // For self reference: Math.max(x, y) returns the bigger number
         return "-".repeat(Math.max(0, this.width));
     }
 
@@ -104,7 +104,6 @@ public class Receipt {
 
             productString.append(generateMidSpacedString(nameString, numbersString));
         }
-
 
         return productString.toString();
     }

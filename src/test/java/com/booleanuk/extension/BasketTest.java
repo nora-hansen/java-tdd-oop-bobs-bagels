@@ -65,7 +65,7 @@ public class BasketTest {
         com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
 
         Assertions.assertNotNull(onionBagel);
-        Assertions.assertTrue(basket.addToBasket(onionBagel, 3));
+        Assertions.assertTrue(basket.addToBasket(onionBagel, 3, inventory));
     }
 
     @Test
@@ -84,7 +84,7 @@ public class BasketTest {
         basket.addToBasket(inventory, onionBagel);
 
         Assertions.assertNotNull(onionBagel);
-        Assertions.assertFalse(basket.addToBasket(onionBagel, 3));
+        Assertions.assertFalse(basket.addToBasket(onionBagel, 3, inventory));
     }
 
     @Test

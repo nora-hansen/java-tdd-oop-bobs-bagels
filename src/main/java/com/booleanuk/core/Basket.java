@@ -27,6 +27,7 @@ public class Basket {
             if(basket.size() < size) {  // Is basket full?
                 basket.add(product);
                 this.total += product.getPrice();   // Add cost to total
+                inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
 
                 System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
                 return true;
@@ -41,14 +42,19 @@ public class Basket {
         return false;
     }
 
-    public boolean addToBasket(Product product, int amount)
+    public boolean addToBasket(Product product, int amount, Inventory inv)
     {
-        if(product != null)
+        if(!this.checkStock(inv, product.getSku())) {
+            System.out.println("Product is out of stock");
+            return false;
+        }
+        if(!product.getName().isEmpty())
         {
             if(basket.size() < size - amount) {
                 for(int i = 0; i < amount; i++)
                 {
                     basket.add(product);
+                    inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
                 }
                 System.out.println(amount + " " + product.getName() + "s has been added to your basket!");
                 return true;

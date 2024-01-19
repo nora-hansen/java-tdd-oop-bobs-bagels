@@ -1,15 +1,18 @@
 package com.booleanuk.extension;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Basket {
     private final ArrayList<Product> basket;
+    private final HashMap<Product, Integer> discountedItems;
     private int size;
     private double total;
 
     public Basket()
     {
         this.basket = new ArrayList<>();
+        this.discountedItems = new HashMap<>();
         this.size = 10;
         this.total = 0.0;
     }
@@ -27,10 +30,10 @@ public class Basket {
             if(basket.size() < size) {  // Is basket full?
                 basket.add(product);
                 this.total += product.getPrice();   // Add cost to total
+                inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
 
                 System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
                 return true;
-
             }   else {
                 System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");
                 return false;
@@ -41,14 +44,19 @@ public class Basket {
         return false;
     }
 
-    public boolean addToBasket(Product product, int amount)
+    public boolean addToBasket(Product product, int amount, Inventory inv)
     {
-        if(product != null)
+        if(!this.checkStock(inv, product.getSku())) {
+            System.out.println("Product is out of stock");
+            return false;
+        }
+        if(!product.getName().isEmpty())
         {
             if(basket.size() < size - amount) {
                 for(int i = 0; i < amount; i++)
                 {
                     basket.add(product);
+                    inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
                 }
                 System.out.println(amount + " " + product.getName() + "s has been added to your basket!");
                 return true;
@@ -93,20 +101,17 @@ public class Basket {
         return this.total;
     }
 
-    public double getDiscount()
+    public double getBagelDiscount()
     {
-        double originalBagelCost = 0;
-        int bagelDiscount = 0;
         int bagelCount = 0;
+        double discount = 0;
+
         for(Product p : basket)
         {
-            if(p.getName().equals("Bagel"))
-            {
-                bagelCount++;
-                originalBagelCost += p.getPrice();
-            }
+
         }
-        return 0;
+
+        return discount;
     }
 
     public boolean removeFromBasket(String sku)
