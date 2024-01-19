@@ -170,7 +170,13 @@ So I can keep track of my spending,
 I want to get a receipt for my purchase
 ````
 
-| Classes         | Methods                  | Member Variables | Scenario                  | Output/Result                                              |
-|-----------------|--------------------------|------------------|---------------------------|------------------------------------------------------------|
-| Basket, Receipt | Receipt::generateReceipt | Basket basket    | I have items in my basket | A receipt showing the prices of items and total is printed |
-|                 |                          |                  |                           |                                                            |
+| Classes         | Methods                                          | Member Variables              | Scenario                  | Output/Result                                              |
+|-----------------|--------------------------------------------------|-------------------------------|---------------------------|------------------------------------------------------------|
+| Basket, Receipt | Receipt::generateReceipt()                       | Basket basket                 | I have items in my basket | A receipt showing the prices of items and total is printed |
+|                 | Receipt::getPadding()                            | StringBuilder receipt         |                           |                                                            |
+|                 | Receipt::getDashedLine()                         | StringBuilder productString   |                           |                                                            |
+|                 | Receipt::getDateTime()                           | String total                  |                           |                                                            |
+|                 | Receipt::countProducts()                         | String numbers                |                           |                                                            |
+|                 | Receipt::generateProductStrings()                | StringBuilder resultingString |                           |                                                            |
+|                 | Receipt::generateTotalString()                   | int padding                   |                           |                                                            |
+|                 | Receipt::generateMidSpacedString(String, String) |                               |                           |                                                            |

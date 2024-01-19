@@ -11,9 +11,9 @@ classDiagram
         + removeFromBasket(Product, int) boolean
         + changeSize(int) boolean
         + getTotal() Double
-        + showPrices(Inventory) void
-        + showPrices(String, Inventory) void
-        + showPrices(String[], Inventory) void
+        + showPrices() void
+        + showPrices(String) void
+        + showPrices(String[]) void
         }
     class Product{    
         - name : String
