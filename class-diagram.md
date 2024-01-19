@@ -48,8 +48,13 @@ classDiagram
         - inventory : Inventory
         - basket : Basket
     }
+    class Receipt{
+        - receipt : String
+        + generateReceipt() : String
+    }
     Basket ..> Product
     Product ..> Inventory
     BobsBagels ..> Basket
     BobsBagels ..> Inventory
+    Receipt ..> Basket
 ````

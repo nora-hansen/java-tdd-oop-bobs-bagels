@@ -1,5 +1,8 @@
-package com.booleanuk.core;
+package com.booleanuk.extension;
 
+import com.booleanuk.core.Basket;
+import com.booleanuk.core.Inventory;
+import com.booleanuk.core.Product;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -15,9 +18,9 @@ public class BasketTest {
     @Test
     public void testAddValidProduct()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
 
         Assertions.assertNotNull(onionBagel);
         Assertions.assertTrue(basket.addToBasket(inventory, onionBagel));
@@ -26,9 +29,9 @@ public class BasketTest {
     @Test
     public void testAddInvalidProduct()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product invalidBagel = new Product("INVL", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product invalidBagel = new com.booleanuk.core.Product("INVL", inventory);
 
         Assertions.assertFalse(basket.addToBasket(inventory, invalidBagel));
     }
@@ -36,9 +39,9 @@ public class BasketTest {
     @Test
     public void testAddValidProductBasketFull()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
 
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
@@ -57,9 +60,9 @@ public class BasketTest {
     @Test
     public void testAddValidProductThreeTimes()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
 
         Assertions.assertNotNull(onionBagel);
         Assertions.assertTrue(basket.addToBasket(onionBagel, 3));
@@ -68,9 +71,9 @@ public class BasketTest {
     @Test
     public void testAddValidProductBasketTooSmall()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
@@ -87,9 +90,9 @@ public class BasketTest {
     @Test
     public void testRemoveValidProduct()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
         basket.addToBasket(inventory, onionBagel);
 
         Assertions.assertTrue(basket.removeFromBasket("BGLO"));
@@ -98,9 +101,9 @@ public class BasketTest {
     @Test
     public void testRemoveProductNotInBasket()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
         basket.addToBasket(inventory, onionBagel);
 
         Assertions.assertFalse(basket.removeFromBasket("COFC"));
@@ -109,7 +112,7 @@ public class BasketTest {
     @Test
     public void testRemoveEmptyBasket()
     {
-        Basket basket = new Basket();
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
 
         Assertions.assertFalse(basket.removeFromBasket("BGLO"));
     }
@@ -118,7 +121,7 @@ public class BasketTest {
     public void testRemoveProductShowsMessage()
     {
         System.setOut(new PrintStream(outputStreamCaptor));
-        Basket basket = new Basket();
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
         basket.removeFromBasket("BGLO");
         String expectedString = "Product of SKU BGLO wasn't found in your basket!\n";
 
@@ -129,7 +132,7 @@ public class BasketTest {
     @Test
     public void testChangeBasketCapacitySuccess()
     {
-        Basket basket = new Basket();
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
 
         Assertions.assertTrue(basket.changeSize(50));
         Assertions.assertTrue(basket.changeSize(100));
@@ -139,7 +142,7 @@ public class BasketTest {
     @Test
     public void testChangeBasketCapacityInvalid()
     {
-        Basket basket = new Basket();
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
 
         Assertions.assertFalse(basket.changeSize(-50));
         Assertions.assertFalse(basket.changeSize(-6));
@@ -149,9 +152,9 @@ public class BasketTest {
     @Test
     public void testChangeBasketCapacityItemsAlreadyInBasketValid()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
@@ -164,9 +167,9 @@ public class BasketTest {
     @Test
     public void testChangeBasketCapacityItemsAlreadyInBasketNotValid()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
@@ -179,11 +182,11 @@ public class BasketTest {
     @Test
     public void testGetTotalCost()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
-        Product coffeeLatte = new Product("COFL", inventory);
-        Product cheese = new Product("FILC", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
+        com.booleanuk.core.Product coffeeLatte = new com.booleanuk.core.Product("COFL", inventory);
+        com.booleanuk.core.Product cheese = new com.booleanuk.core.Product("FILC", inventory);
 
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, coffeeLatte);
@@ -198,7 +201,7 @@ public class BasketTest {
     @Test
     public void testGetTotalCostEmptyBasket()
     {
-        Basket basket = new Basket();
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
 
         Assertions.assertEquals(0.0, basket.getTotal());
     }
@@ -206,8 +209,8 @@ public class BasketTest {
     @Test
     public void testSeePrices()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
 
         String expectedString = """
                 Prices:
@@ -236,8 +239,8 @@ public class BasketTest {
     @Test
     public void testSeePriceOfOneItem()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
 
         String expectedString = """
                 Prices:
@@ -253,8 +256,8 @@ public class BasketTest {
     @Test
     public void testSeePriceOfMultipleItems()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
 
         String expectedString = """
                 Prices:
@@ -272,22 +275,75 @@ public class BasketTest {
     @Test
     public void testAddFillingsNoBagel()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
 
         ByteArrayInputStream testIn = new ByteArrayInputStream(("y".getBytes()));
         System.setIn(testIn);
-        Assertions.assertTrue(basket.addToBasket(inventory,new Product("FILH", inventory)));
+        Assertions.assertTrue(basket.addToBasket(inventory,new com.booleanuk.core.Product("FILH", inventory)));
     }
 
     @Test
     public void testAddToBasketOutOfStock()
     {
-        Basket basket = new Basket();
-        Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
 
         inventory.setStock("BGLO", 0);
         Assertions.assertFalse(basket.addToBasket(inventory, onionBagel));
+    }
+
+    @Test
+    public void testSixBagelDiscount()
+    {
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
+
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        Assertions.assertEquals(2.49, basket.getTotal());
+    }
+
+    @Test
+    public void testTwelveBagelDiscount()
+    {
+        com.booleanuk.core.Basket basket = new com.booleanuk.core.Basket();
+        com.booleanuk.core.Inventory inventory = new com.booleanuk.core.Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
+
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, onionBagel);
+
+        Assertions.assertEquals(3.99, basket.getTotal());
+    }
+
+    @Test
+    public void testCoffeeBagelDiscount()
+    {
+        com.booleanuk.core.Basket basket = new Basket();
+        com.booleanuk.core.Inventory inventory = new Inventory();
+        com.booleanuk.core.Product onionBagel = new com.booleanuk.core.Product("BGLO", inventory);
+        com.booleanuk.core.Product blackCoffee = new Product("COFB", inventory);
+
+        basket.addToBasket(inventory, onionBagel);
+        basket.addToBasket(inventory, blackCoffee);
+
+        Assertions.assertEquals(1.25, basket.getTotal());
     }
 }

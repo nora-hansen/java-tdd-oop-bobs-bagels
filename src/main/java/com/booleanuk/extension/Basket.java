@@ -1,4 +1,4 @@
-package com.booleanuk.core;
+package com.booleanuk.extension;
 
 import java.util.ArrayList;
 
@@ -86,6 +86,22 @@ public class Basket {
         this.total = Math.round(this.total*100);
         this.total = this.total/100;
         return this.total;
+    }
+
+    public double getDiscount()
+    {
+        double originalBagelCost = 0;
+        int bagelDiscount = 0;
+        int bagelCount = 0;
+        for(Product p : basket)
+        {
+            if(p.getName().equals("Bagel"))
+            {
+                bagelCount++;
+                originalBagelCost += p.getPrice();
+            }
+        }
+        return 0;
     }
 
     public boolean removeFromBasket(String sku)
