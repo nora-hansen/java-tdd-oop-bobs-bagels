@@ -8,7 +8,7 @@ public class ProductTest {
     public void testGetNameOnionBagel()
     {
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
 
         Assertions.assertEquals("Bagel", onionBagel.getName());
     }
@@ -17,7 +17,7 @@ public class ProductTest {
     public void testGetNameInvalid()
     {
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("INVL", inventory);
+        Product onionBagel = new Bagel("INVL", inventory);
 
         Assertions.assertEquals("", onionBagel.getName());
     }
@@ -26,7 +26,7 @@ public class ProductTest {
     public void testGetPriceOnionBagel()
     {
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
 
         Assertions.assertEquals(0.49, onionBagel.getPrice());
     }
@@ -35,7 +35,7 @@ public class ProductTest {
     public void testGetPriceInvalid()
     {
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("INVL", inventory);
+        Product onionBagel = new Bagel("INVL", inventory);
 
         Assertions.assertEquals(-1.0, onionBagel.getPrice());
     }

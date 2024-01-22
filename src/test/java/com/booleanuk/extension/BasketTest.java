@@ -382,4 +382,26 @@ public class BasketTest {
 
         Assertions.assertEquals(1.25, basket.getTotal());
     }
+
+    @Test
+    public void testMultipleItemsDiscount()
+    {
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket(inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
+        Product plainBagel = new Bagel("BGLP", inventory);
+        Product blackCoffee = new Coffee("COFB", inventory);
+        Product latteCoffee = new Coffee("COFL", inventory);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel); // = 2.49
+        basket.addToBasket(plainBagel);
+        basket.addToBasket(blackCoffee); // 1.25
+        basket.addToBasket(latteCoffee); // 1.29
+
+        Assertions.assertEquals(5.03, basket.getTotal());
+    }
 }

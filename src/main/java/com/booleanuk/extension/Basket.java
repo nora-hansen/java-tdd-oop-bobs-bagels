@@ -177,16 +177,21 @@ public class Basket {
     {
         Double[] priceDiscountNewPrice = new Double[] {0.0,0.0,0.0};
 
-        int coffees = 0, bagels = 0;
+        int coffees = 0, bagels = 0, plains = 0;
 
         for(String sku : productCounts.keySet())
         {
-            // Eligible for 12 item discount
-            if(inventory.getVariant(sku).equals("Black"))
-                coffees++;
-            else if(inventory.getName(sku).equals("Bagel"))
-            {
-                bagels++;
+            while(productCounts.get(sku) > 0) {
+                // Eligible for 12 item discount
+                if (inventory.getVariant(sku).equals("Black"))
+                    coffees++;
+                else if (inventory.getName(sku).equals("Bagel")) {
+                    if (inventory.getVariant(sku).equals("Plain"))
+                        plains++;
+                    else
+                        bagels++;
+                }
+                productCounts.put(sku, productCounts.get(sku) - 1);
             }
         }
         while(coffees >0 && bagels >0)
@@ -196,6 +201,14 @@ public class Basket {
             priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
             coffees--;
             bagels--;
+        }
+        while(coffees >0 && plains >0)
+        {
+            priceDiscountNewPrice[0] = 0.99 + 0.39;
+            priceDiscountNewPrice[2] = 1.25;
+            priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
+            coffees--;
+            plains--;
         }
 
         this.discount += priceDiscountNewPrice[1];
