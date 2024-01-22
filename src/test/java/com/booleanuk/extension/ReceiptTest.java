@@ -9,9 +9,9 @@ public class ReceiptTest {
     {
         Inventory inventory = new Inventory();
         Basket basket = new Basket(inventory);
-        Product onionBagel = new Product("BGLO", inventory);
-        Product whiteCoffee = new Product("COFW", inventory);
-        Product cheese = new Product("FILC", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
+        Product whiteCoffee = new Coffee("COFW", inventory);
+        Product cheese = new Filling("FILC", inventory);
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
@@ -31,12 +31,12 @@ public class ReceiptTest {
                         
                 ------------------------------
 
-                White Coffee           1 \u00A31.19
-                Onion Bagel            4 \u00A31.96
-                Cheese Filling         2 \u00A30.24
+                White Coffee           1 £1.19
+                Onion Bagel            4 £1.96
+                Cheese Filling         2 £0.24
 
                 ------------------------------
-                Total                    \u00A33.39
+                Total                    £3.39
 
 
                           Thank you         \s
@@ -63,7 +63,7 @@ public class ReceiptTest {
 
 
                 ------------------------------
-                Total                     \u00A30.0
+                Total                     £0.0
 
 
                           Thank you         \s

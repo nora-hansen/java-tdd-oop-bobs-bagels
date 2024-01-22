@@ -81,11 +81,11 @@ classDiagram
         + getDateTime : String
         + generateProductStrings : void
     }
-    Basket ..> Product
-    Product ..> Inventory
+    Basket ..> Product : 0..*
+    Product ..> Inventory : 1..1
     BobsBagels ..> Basket
     BobsBagels ..> Inventory
-    Receipt ..> Basket
+    Receipt ..> Basket : 1..1
     Product ..|> Bagel
     Product ..|> Coffee
     Product ..|> Filling
