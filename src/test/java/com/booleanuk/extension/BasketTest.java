@@ -71,6 +71,7 @@ public class BasketTest {
         Inventory inventory = new Inventory();
         Basket basket = new Basket(inventory);
         Product onionBagel = new Product("BGLO", inventory);
+        basket.changeSize(10);
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
@@ -309,7 +310,6 @@ public class BasketTest {
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
-        basket.getBagelDiscount();
         Assertions.assertEquals(2.49, basket.getTotal());
     }
 
@@ -320,6 +320,9 @@ public class BasketTest {
         Basket basket = new Basket(inventory);
         Product onionBagel = new Product("BGLO", inventory);
 
+        inventory.setStock("BGLO", 20);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
         basket.addToBasket(onionBagel);
@@ -332,9 +335,40 @@ public class BasketTest {
         basket.addToBasket(onionBagel);
         //  Change stock, tests ran out of Onion Bagel :(
         //  Then add two more :)
-        basket.getBagelDiscount();
 
         Assertions.assertEquals(3.99, basket.getTotal());
+    }
+
+    @Test
+    public void testEighteenBagelDiscount()
+    {
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket(inventory);
+        Product onionBagel = new Product("BGLO", inventory);
+
+        inventory.setStock("BGLO", 20);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        //  Change stock, tests ran out of Onion Bagel :(
+        //  Then add two more :)
+
+        Assertions.assertEquals(6.48, basket.getTotal());
     }
 
     @Test

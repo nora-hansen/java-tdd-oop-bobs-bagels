@@ -10,6 +10,7 @@ public class Basket {
     private final HashMap<String, Integer> productCounts;
     private int size;
     private double total;
+    private double discount;
 
     public Basket(Inventory inventory)
     {
@@ -17,8 +18,9 @@ public class Basket {
         this.basket = new ArrayList<>();
         this.discountedItems = new HashMap<>();
         this.productCounts = new HashMap<>();
-        this.size = 10;
+        this.size = 50;
         this.total = 0.0;
+        this.discount = 0.0;
     }
 
     public boolean addToBasket(Product product)
@@ -34,7 +36,7 @@ public class Basket {
             if(basket.size() < size) {  // Is basket full?
                 basket.add(product);
                 addToCount(product.getSku());
-                this.total += product.getPrice();   // Add cost to total
+                System.out.println("Added to count, " +  this.productCounts.get(product.getSku()));
                 this.inventory.setStock(product.getSku(), this.inventory.getStock(product.getSku()) -1);
 
                 System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
@@ -101,8 +103,20 @@ public class Basket {
         return this.basket;
     }
 
+    public void calculateTotal()
+    {
+        this.total = 0;
+        for(Product p : this.basket)
+        {
+            this.total += p.getPrice();
+        }
+        getBagelDiscount();
+        this.total -= this.discount;
+    }
+
     public double getTotal()
     {
+        calculateTotal();
         this.total = Math.round(this.total*100);
         this.total = this.total/100;
         return this.total;
@@ -127,33 +141,33 @@ public class Basket {
      */
     public double getBagelDiscount()
     {
-        double discount = 0.0;
         Double[] priceDiscountNewPrice = new Double[] {0.0,0.0,0.0};
 
         for(String sku : productCounts.keySet())
         {
+            // Eligible for 12 item discount
             while(productCounts.get(sku) >= 12)
             {
+                System.out.println("12: " + productCounts.put(sku, productCounts.get(sku)));
                 priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 12.0;
-                priceDiscountNewPrice[2] += 3.99d;
-                priceDiscountNewPrice[1] = priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
+                priceDiscountNewPrice[2] = 3.99d;
+                priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
                 productCounts.put(sku, productCounts.get(sku) - 12);
             }
+            // Eligible for 6 item discount
             while(productCounts.get(sku) >= 6)
             {
                 priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 6.0;
-                priceDiscountNewPrice[2] += 2.45d;
-                priceDiscountNewPrice[1] = priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
+                priceDiscountNewPrice[2] = 2.49d;
+                priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
                 productCounts.put(sku, productCounts.get(sku) - 6);
             }
             if(priceDiscountNewPrice[2] > 0)
             {
                 discountedItems.put(sku, priceDiscountNewPrice);
             }
-            System.out.println("OUTPUT " + this.inventory.getPrice(sku) + " " + priceDiscountNewPrice[1] + " " + priceDiscountNewPrice[2] );
         }
-        System.out.println("OUTPUT " + priceDiscountNewPrice[0] + " " + priceDiscountNewPrice[1] + " " + priceDiscountNewPrice[2] );
-
+        this.discount = priceDiscountNewPrice[1];
         return discount;
     }
 
