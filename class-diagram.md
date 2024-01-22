@@ -29,7 +29,16 @@ classDiagram
         + getSku() String
         + getVariant() String
         + showPrice() void
+    }
+    class Coffee {
+            
         }
+    class Bagel {
+
+    }
+    class Filling {
+
+    }
     class Inventory{    
         - prices : HashMap< String, Double >
         - stock : HashMap< String, Integer >
@@ -77,4 +86,7 @@ classDiagram
     BobsBagels ..> Basket
     BobsBagels ..> Inventory
     Receipt ..> Basket
+    Product ..|> Bagel
+    Product ..|> Coffee
+    Product ..|> Filling
 ````

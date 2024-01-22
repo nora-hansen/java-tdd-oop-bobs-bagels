@@ -171,6 +171,11 @@ public class Basket {
         return discount;
     }
 
+    public double getCoffeeBagelDiscount()
+    {
+
+    }
+
     public boolean removeFromBasket(String sku)
     {
         for(Product item : basket)
