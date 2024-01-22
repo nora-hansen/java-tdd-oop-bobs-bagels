@@ -173,7 +173,17 @@ public class Basket {
 
     public double getCoffeeBagelDiscount()
     {
+        Double[] priceDiscountNewPrice = new Double[] {0.0,0.0,0.0};
 
+        int coffees = 0, bagels = 0;
+
+        for(String sku : productCounts.keySet())
+        {
+            // Eligible for 12 item discount
+
+        }
+        this.discount = priceDiscountNewPrice[1];
+        return discount;
     }
 
     public boolean removeFromBasket(String sku)
