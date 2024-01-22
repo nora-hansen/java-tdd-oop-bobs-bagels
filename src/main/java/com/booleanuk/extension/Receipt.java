@@ -28,6 +28,16 @@ public class Receipt {
         countProducts();
     }
 
+    /**
+     * Generate the receipt string
+     * @see Basket::getDiscountedItems()
+     * @see Receipt::getPadding()
+     * @see Receipt::getDateTime()
+     * @see Receipt::getDashedLine()
+     * @see Receipt::generateProductStrings()
+     * @see Receipt::generateTotalString()
+     * @return - Receipt string
+     */
     public String generateReceipt()
     {
         basket.getTotal();
@@ -50,7 +60,7 @@ public class Receipt {
         // Total
         receipt.append("\n");
         receipt.append(generateTotalString());
-        // Bottom text
+        // Show if discounted items exist
         if(!basket.getDiscountedItems().isEmpty())
         {
             String[] youSaved = {"You saved a total of £" + basket.getDiscount(), "on this shop"};
@@ -64,7 +74,7 @@ public class Receipt {
                     + "s", "", youSaved[1], ""));
             receipt.append("\n");
         }
-
+        // Bottom text
         receipt.append("\n").
                 append(String.format("%" + getPadding(this.bottomText[0])
                         + "s%s%" + getPadding(this.bottomText[0])
@@ -80,22 +90,38 @@ public class Receipt {
         return receipt.toString();
     }
 
+    /**
+     * Get padding size
+     * @param s - String to pad
+     * @return
+     */
     public int getPadding(String s)
     {
         return (width - s.length()) / 2;
     }
 
+    /**
+     * Generates dashes to form a line across receipt
+     * @return Dashed line
+     */
     public String getDashedLine()
     {
         // For self reference: Math.max(x, y) returns the bigger number
         return "-".repeat(Math.max(0, this.width));
     }
 
+    /**
+     * Gets a string of the date and time formatted like "YYYY-MM-DD  HH:mm:ss"
+     * @return The date and time string
+     */
     public String getDateTime()
     {
         return this.date + "  " + this.format.format(time);
     }
 
+    /**
+     * Count the products
+     */
     public void countProducts()
     {
         for(Product p : this.basket.getBasket())
@@ -109,6 +135,10 @@ public class Receipt {
         }
     }
 
+    /**
+     * Generates strings of the product name, amount, and price
+     * @return The generated strings
+     */
     public String generateProductStrings()
     {
         StringBuilder productString = new StringBuilder();
@@ -132,6 +162,10 @@ public class Receipt {
         return productString.toString();
     }
 
+    /**
+     * Generate a string for the total price at the bottom
+     * @return The generated string
+     */
     public String generateTotalString()
     {
         String total = "Total";
@@ -139,6 +173,12 @@ public class Receipt {
         return generateMidSpacedString(total, numbers);
     }
 
+    /**
+     * Generate a string with the leftString on the far left, and rightString on the far Right
+     * @param leftString
+     * @param rightString
+     * @return The generated string
+     */
     public String generateMidSpacedString(String leftString, String rightString)
     {
         StringBuilder resultingString = new StringBuilder();
