@@ -17,7 +17,7 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
 
         Assertions.assertNotNull(onionBagel);
         Assertions.assertTrue(basket.addToBasket(inventory, onionBagel));
@@ -28,7 +28,7 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product invalidBagel = new Product("INVL", inventory);
+        Product invalidBagel = new Bagel("INVL", inventory);
 
         Assertions.assertFalse(basket.addToBasket(inventory, invalidBagel));
     }
@@ -38,7 +38,7 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
 
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
@@ -59,7 +59,7 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
 
         Assertions.assertNotNull(onionBagel);
         Assertions.assertTrue(basket.addToBasket(onionBagel, 3, inventory));
@@ -70,7 +70,7 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
@@ -89,7 +89,7 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
         basket.addToBasket(inventory, onionBagel);
 
         Assertions.assertTrue(basket.removeFromBasket("BGLO"));
@@ -100,7 +100,7 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
         basket.addToBasket(inventory, onionBagel);
 
         Assertions.assertFalse(basket.removeFromBasket("COFC"));
@@ -151,7 +151,7 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
@@ -166,7 +166,7 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, onionBagel);
@@ -181,9 +181,9 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
-        Product coffeeLatte = new Product("COFL", inventory);
-        Product cheese = new Product("FILC", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
+        Product coffeeLatte = new Coffee("COFL", inventory);
+        Product cheese = new Filling("FILC", inventory);
 
         basket.addToBasket(inventory, onionBagel);
         basket.addToBasket(inventory, coffeeLatte);
@@ -277,7 +277,7 @@ public class BasketTest {
 
         ByteArrayInputStream testIn = new ByteArrayInputStream(("y".getBytes()));
         System.setIn(testIn);
-        Assertions.assertTrue(basket.addToBasket(inventory,new Product("FILH", inventory)));
+        Assertions.assertTrue(basket.addToBasket(inventory,new Filling("FILH", inventory)));
     }
 
     @Test
@@ -285,7 +285,7 @@ public class BasketTest {
     {
         Basket basket = new Basket();
         Inventory inventory = new Inventory();
-        Product onionBagel = new Product("BGLO", inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
 
         inventory.setStock("BGLO", 0);
         Assertions.assertFalse(basket.addToBasket(inventory, onionBagel));
