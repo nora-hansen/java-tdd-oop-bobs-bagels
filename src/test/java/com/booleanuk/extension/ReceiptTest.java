@@ -70,4 +70,94 @@ public class ReceiptTest {
                        for your order!      \s""";
         Assertions.assertEquals(expectedString, receipt.generateReceipt());
     }
+
+    @Test
+    public void testGenerateSixBagelDiscountReceipt()
+    {
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket(inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+
+        Receipt receipt = new Receipt(basket, inventory);
+
+        String expectedString = """
+                     ~~~ Bob's Bagels ~~~    \s
+                                  
+                \s\s\s\s\s""";
+        expectedString += receipt.getDateTime();
+        expectedString += """
+                    \s
+                        
+                ------------------------------
+
+                Onion Bagel            6 £2.49
+                                       (-£0.45)
+
+                ------------------------------
+                Total                    £2.49
+                  You saved a total of £0.69  \s
+                         on this shop         \s
+
+
+                          Thank you         \s
+                       for your order!      \s""";
+        Assertions.assertEquals(expectedString, receipt.generateReceipt());
+    }
+
+    @Test
+    public void testGenerateTwelveAndCoffeeDiscountReceipt()
+    {
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket(inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
+        Product blackCoffee = new Bagel("COFB", inventory);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(blackCoffee);
+
+        Receipt receipt = new Receipt(basket, inventory);
+
+        String expectedString = """
+                     ~~~ Bob's Bagels ~~~    \s
+                                  
+                \s\s\s\s\s""";
+        expectedString += receipt.getDateTime();
+        expectedString += """
+                    \s
+                        
+                ------------------------------
+
+                Onion Bagel           13 £6.37
+                                       (-£1.89)
+                Black Coffee           1 £0.99
+                                       (-£0.23)
+                
+
+                ------------------------------
+                Total                    £2.49
+                  You saved a total of £2.12  \s
+                         on this shop         \s
+
+
+                          Thank you         \s
+                       for your order!      \s""";
+        Assertions.assertEquals(expectedString, receipt.generateReceipt());
+    }
 }

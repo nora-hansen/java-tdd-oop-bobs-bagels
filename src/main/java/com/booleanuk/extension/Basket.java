@@ -6,8 +6,8 @@ import java.util.HashMap;
 public class Basket {
     Inventory inventory;
     private final ArrayList<Product> basket;
-    private final HashMap<String, Double[]> discountedItems;
     private final HashMap<String, Integer> productCounts;
+    private final HashMap<String, Double[]> discountedItems;
     private int size;
     private double total;
     private double discount;
