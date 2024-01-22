@@ -46,9 +46,6 @@ public class Basket {
                 System.out.println("1 " + product.getVariant()
                         + " " + product.getName()
                         + " has been added to your basket!");
-                System.out.println("1 " + product.getVariant()
-                        + " " + product.getName()
-                        + " has been added to your basket!");
                 return true;
             }   else {
                 System.out.println("Could not add "
@@ -179,11 +176,11 @@ public class Basket {
             // Eligible for 12 item discount
             while(productCounts.get(sku) >= 12)
             {
-                System.out.println("12: " + productCounts.put(sku, productCounts.get(sku)));
                 priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 12.0;
                 priceDiscountNewPrice[2] = 3.99d;
                 priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];    // Find difference
                 productCounts.put(sku, productCounts.get(sku) - 12);
+                discountedItems.put(sku, priceDiscountNewPrice);
             }
             // Eligible for 6 item discount
             while(productCounts.get(sku) >= 6)
@@ -193,9 +190,6 @@ public class Basket {
                 priceDiscountNewPrice[2] = inventory.getVariant(sku).equals("Plain") ? 2.29d : 2.49d;
                 priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
                 productCounts.put(sku, productCounts.get(sku) - 6);
-            }
-            if(priceDiscountNewPrice[2] > 0)
-            {
                 discountedItems.put(sku, priceDiscountNewPrice);
             }
         }
@@ -247,8 +241,19 @@ public class Basket {
             coffees--;
             plains--;
         }
-
+        discountedItems.put("COFB", priceDiscountNewPrice);
         this.discount += priceDiscountNewPrice[1];
+    }
+
+    public double getDiscount()
+    {
+        this.discount = Math.round(this.discount*100);
+        this.discount = this.discount/100;
+        return this.discount;
+    }
+
+    public HashMap<String, Double[]> getDiscountedItems() {
+        return this.discountedItems;
     }
 
     /**

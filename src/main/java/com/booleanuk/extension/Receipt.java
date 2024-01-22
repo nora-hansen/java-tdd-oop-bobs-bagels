@@ -30,6 +30,7 @@ public class Receipt {
 
     public String generateReceipt()
     {
+        basket.getTotal();
         // Top text
         StringBuilder receipt = new StringBuilder(
                 String.format("%" + getPadding(this.topText)
@@ -50,7 +51,21 @@ public class Receipt {
         receipt.append("\n");
         receipt.append(generateTotalString());
         // Bottom text
-        receipt.append("\n\n").
+        if(!basket.getDiscountedItems().isEmpty())
+        {
+            String[] youSaved = {"You saved a total of £" + basket.getDiscount(), "on this shop"};
+            receipt.append("\n");
+            receipt.append(String.format("%" + getPadding(youSaved[0])
+                            + "s%s%" + getPadding(youSaved[0])
+                            + "s", "", youSaved[0], ""));
+            receipt.append("\n")
+                    .append(String.format("%" + getPadding(youSaved[1])
+                    + "s%s%" + getPadding(youSaved[1])
+                    + "s", "", youSaved[1], ""));
+            receipt.append("\n");
+        }
+
+        receipt.append("\n").
                 append(String.format("%" + getPadding(this.bottomText[0])
                         + "s%s%" + getPadding(this.bottomText[0])
                         + "s", "", this.bottomText[0], ""));
@@ -100,9 +115,18 @@ public class Receipt {
 
         for(String key : productCounts.keySet())    {
             String nameString = inventory.getVariant(key) + " " + inventory.getName(key);
-            String numbersString = productCounts.get(key) + " \u00A3" + inventory.getPrice(key) * productCounts.get(key);
-
+            String numbersString = productCounts.get(key) + " £" + inventory.getPrice(key) * productCounts.get(key);
             productString.append(generateMidSpacedString(nameString, numbersString));
+            if(!basket.getDiscountedItems().isEmpty())
+            {
+                double discount = basket.getDiscountedItems().get(key)[1];
+                discount = Math.round(discount*100);
+                discount = discount/100;
+                String discountString = "(-£" + discount + ")";
+                productString.append(String.format("%" + (width - discountString.length())
+                                + "s%s", "", " " + discountString));
+                productString.append("\n");
+            }
         }
 
         return productString.toString();
@@ -111,7 +135,7 @@ public class Receipt {
     public String generateTotalString()
     {
         String total = "Total";
-        String numbers = "\u00A3" + basket.getTotal();
+        String numbers = "£" + basket.getTotal();
         return generateMidSpacedString(total, numbers);
     }
 

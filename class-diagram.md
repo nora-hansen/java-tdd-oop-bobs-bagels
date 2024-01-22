@@ -17,6 +17,7 @@ classDiagram
         + showPrices(String) void
         + showPrices(String[]) void
         + getBagelDiscount() : double
+        + getDiscountedItems() : double
         }
     class Product{    
         - name : String

@@ -30,20 +30,20 @@ public class Inventory {
 
         this.stock = new HashMap<>(){
             {
-                put("BGLO", 10);
-                put("BGLP", 10);
-                put("BGLE", 10);
-                put("BGLS", 10);
-                put("COFB", 10);
-                put("COFW", 10);
-                put("COFC", 10);
-                put("COFL", 10);
-                put("FILB", 10);
-                put("FILE", 10);
-                put("FILC", 10);
-                put("FILX", 10);
-                put("FILS", 10);
-                put("FILH", 10);
+                put("BGLO", 50);
+                put("BGLP", 50);
+                put("BGLE", 50);
+                put("BGLS", 50);
+                put("COFB", 50);
+                put("COFW", 50);
+                put("COFC", 50);
+                put("COFL", 50);
+                put("FILB", 50);
+                put("FILE", 50);
+                put("FILC", 50);
+                put("FILX", 50);
+                put("FILS", 50);
+                put("FILH", 50);
             }};
 
         this.names = new HashMap<>(){

@@ -38,7 +38,6 @@ public class ReceiptTest {
                 ------------------------------
                 Total                    £3.39
 
-
                           Thank you         \s
                        for your order!      \s""";
         Assertions.assertEquals(expectedString, receipt.generateReceipt());
@@ -64,7 +63,6 @@ public class ReceiptTest {
 
                 ------------------------------
                 Total                     £0.0
-
 
                           Thank you         \s
                        for your order!      \s""";
@@ -96,14 +94,14 @@ public class ReceiptTest {
                         
                 ------------------------------
 
-                Onion Bagel            6 £2.49
+                Onion Bagel            6 £2.94
                                        (-£0.45)
 
                 ------------------------------
                 Total                    £2.49
-                  You saved a total of £0.69  \s
-                         on this shop         \s
-
+                
+                  You saved a total of £0.45 \s
+                         on this shop        \s
 
                           Thank you         \s
                        for your order!      \s""";
@@ -149,12 +147,11 @@ public class ReceiptTest {
                 Black Coffee           1 £0.99
                                        (-£0.23)
                 
-
                 ------------------------------
-                Total                    £2.49
-                  You saved a total of £2.12  \s
-                         on this shop         \s
-
+                Total                    £5.24
+                
+                  You saved a total of £2.12 \s
+                         on this shop        \s
 
                           Thank you         \s
                        for your order!      \s""";
