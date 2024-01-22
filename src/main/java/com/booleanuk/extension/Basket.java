@@ -23,6 +23,11 @@ public class Basket {
         this.discount = 0.0;
     }
 
+    /**
+     * Adds a Product object to the basket
+     * @param product - The product to be added to the basket
+     * @return True/False Indicating if addition was successful or not
+     */
     public boolean addToBasket(Product product)
     {
         // Check if product stock is more than zero
@@ -36,14 +41,19 @@ public class Basket {
             if(basket.size() < size) {  // Is basket full?
                 basket.add(product);
                 addToCount(product.getSku());
-                System.out.println("Added to count, " +  this.productCounts.get(product.getSku()));
                 this.inventory.setStock(product.getSku(), this.inventory.getStock(product.getSku()) -1);
 
-                System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
-                System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
+                System.out.println("1 " + product.getVariant()
+                        + " " + product.getName()
+                        + " has been added to your basket!");
+                System.out.println("1 " + product.getVariant()
+                        + " " + product.getName()
+                        + " has been added to your basket!");
                 return true;
             }   else {
-                System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");
+                System.out.println("Could not add "
+                        + product.getVariant() + " "
+                        + product.getName() + " to basket, your basket is full!");
                 return false;
             }
         }
@@ -52,34 +62,32 @@ public class Basket {
         return false;
     }
 
+    /**
+     * Adds a product to the basket a number of times
+     * @see Basket::addToBasket(...)
+     * @param product - Product to be added to basket
+     * @param amount - Amount of products to add
+     * @return True/False indicating if addition was successful or not
+     */
     public boolean addToBasket(Product product, int amount)
     {
-        if(!this.checkStock(product.getSku())) {
-            System.out.println("Product is out of stock");
-            return false;
-        }
-        if(!product.getName().isEmpty())
+        boolean result = false;
+        for(int i = 0; i < amount; i++)
         {
-            if(basket.size() < size - amount) {
-                for(int i = 0; i < amount; i++)
-                {
-                    basket.add(product);
-                    addToCount(product.getSku());
-                    this.inventory.setStock(product.getSku(), this.inventory.getStock(product.getSku()) -1);
-                }
-                System.out.println(amount + " " + product.getName() + "s has been added to your basket!");
-                return true;
-            }   else {
-                System.out.println("Could not add " + product.getName() + " to basket, your basket is full!");
-                return false;
-            }
+            result = addToBasket(product);
         }
-        System.out.println("Could not add product to basket, because product is null");
-        return false;
+        return result;
     }
 
+    /**
+     * Change the maximum size of the basket
+     * @param size - Desired size
+     * @return True/False if action was successful.
+     *           If current basket is smaller than desired size, returns false
+     */
     public boolean changeSize(int size)
     {
+        // Checks if wanted size is valid
         if(size >= 0 && size >= basket.size())
         {
             System.out.println("Basket size is now " + size);
@@ -88,30 +96,47 @@ public class Basket {
         }
         System.out.println("Could not change basket size: "
                 + ((size < 0)
-                ? "Size cannot be negative!"
-                : "Basket already has more items in it than desired size!"));
+                ? "Size cannot be negative!"    // Displayed if size is negative
+                : "Basket already has more items in it than desired size!"));   // Displayed if size is less than
+                                                                                //   basket is filled
         return false;
     }
 
+    /**
+     * Check if there are items in stock for specified item
+     * @see Inventory::getStock(...)
+     * @param sku - SKU of item to check stock for
+     * @return  True is there are items left, false if not
+     */
     public boolean checkStock(String sku)
     {
         return this.inventory.getStock(sku) > 0;
     }
 
+    /**
+     * Basket getter
+     * @return basket
+     */
     public ArrayList<Product> getBasket()
     {
         return this.basket;
     }
 
+    /**
+     * Calculate the total cost of items in the basket
+     * @see Product::getPrice()
+     * @see Basket::getBagelDiscount()
+     * @see Basket::getCoffeeBagelDiscount()
+     */
     public void calculateTotal()
     {
-        this.total = 0;
+        this.total = 0; // reset total in case calculations are already done
         for(Product p : this.basket)
         {
             this.total += p.getPrice();
         }
-        getBagelDiscount();
-        getCoffeeBagelDiscount();
+        getBagelDiscount(); // 6 or 12 bagel discount
+        getCoffeeBagelDiscount();   // Coffee & Bagel discount
         this.total -= this.discount;
     }
 
@@ -123,6 +148,10 @@ public class Basket {
         return this.total;
     }
 
+    /**
+     * Add a product to a count
+     * @param sku - Product to be counted
+     */
     public void addToCount(String sku)
     {
         if(this.productCounts.containsKey(sku))
@@ -137,6 +166,10 @@ public class Basket {
     TODO
          Add to receipt
      */
+
+    /**
+     * Get the discount for 12 bagels and/or 6 bagels
+     */
     public void getBagelDiscount()
     {
         Double[] priceDiscountNewPrice = new Double[] {0.0,0.0,0.0};
@@ -149,13 +182,14 @@ public class Basket {
                 System.out.println("12: " + productCounts.put(sku, productCounts.get(sku)));
                 priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 12.0;
                 priceDiscountNewPrice[2] = 3.99d;
-                priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
+                priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];    // Find difference
                 productCounts.put(sku, productCounts.get(sku) - 12);
             }
             // Eligible for 6 item discount
             while(productCounts.get(sku) >= 6)
             {
                 priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 6.0;
+                                                                        // Different discount for Plain and others
                 priceDiscountNewPrice[2] = inventory.getVariant(sku).equals("Plain") ? 2.29d : 2.49d;
                 priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
                 productCounts.put(sku, productCounts.get(sku) - 6);
@@ -171,6 +205,10 @@ public class Basket {
     /*
         TODO
          Other coffee types? Maybe not, too great a deal. Bob is greedy
+     */
+
+    /**
+     * Get Coffee & Bagel discount
      */
     public void getCoffeeBagelDiscount()
     {
@@ -213,6 +251,12 @@ public class Basket {
         this.discount += priceDiscountNewPrice[1];
     }
 
+    /**
+     * Remove a product from the basket
+     * @see Product::getSku()
+     * @param sku - SKU of product to remove
+     * @return  True/False indicating if the product could be removed
+     */
     public boolean removeFromBasket(String sku)
     {
         for(Product item : basket)
@@ -227,6 +271,9 @@ public class Basket {
         return false;
     }
 
+    /**
+     * Show the product prices
+     */
     public void showPrices()
     {
         String prices = "Prices:\n" +
@@ -248,6 +295,10 @@ public class Basket {
         System.out.print(prices);
     }
 
+    /**
+     * Show the price of one product
+     * @param product - Product to show price of
+     */
     public void showPrices(String product)
     {
         String prices = "Prices:\n" +
@@ -256,6 +307,10 @@ public class Basket {
         System.out.print(prices);
     }
 
+    /**
+     * Show the price of multiple products
+     * @param products - Products to show price of
+     */
     public void showPrices(String[] products)
     {
         StringBuilder prices = new StringBuilder();
