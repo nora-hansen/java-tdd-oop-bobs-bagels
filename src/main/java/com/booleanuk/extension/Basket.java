@@ -111,6 +111,7 @@ public class Basket {
             this.total += p.getPrice();
         }
         getBagelDiscount();
+        getCoffeeBagelDiscount();
         this.total -= this.discount;
     }
 
@@ -134,10 +135,7 @@ public class Basket {
 
     /*
     TODO
-         Apply discount to total
          Add to receipt
-         Take Plain Bagel into account
-         Coffee + Bagel discount (how do they combine?)
      */
     public void getBagelDiscount()
     {
@@ -158,7 +156,7 @@ public class Basket {
             while(productCounts.get(sku) >= 6)
             {
                 priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 6.0;
-                priceDiscountNewPrice[2] = 2.49d;
+                priceDiscountNewPrice[2] = inventory.getVariant(sku).equals("Plain") ? 2.29d : 2.49d;
                 priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
                 productCounts.put(sku, productCounts.get(sku) - 6);
             }
@@ -167,10 +165,15 @@ public class Basket {
                 discountedItems.put(sku, priceDiscountNewPrice);
             }
         }
-        this.discount = priceDiscountNewPrice[1];
+        this.discount += priceDiscountNewPrice[1];
     }
 
-    public double getCoffeeBagelDiscount()
+    /*
+        TODO
+         Take Plain into account
+         Other coffee types? Maybe not, too great a deal
+     */
+    public void getCoffeeBagelDiscount()
     {
         Double[] priceDiscountNewPrice = new Double[] {0.0,0.0,0.0};
 
@@ -179,10 +182,23 @@ public class Basket {
         for(String sku : productCounts.keySet())
         {
             // Eligible for 12 item discount
-            System.out.println("Coffe");
+            if(inventory.getVariant(sku).equals("Black"))
+                coffees++;
+            else if(inventory.getName(sku).equals("Bagel"))
+            {
+                bagels++;
+            }
         }
-        this.discount = priceDiscountNewPrice[1];
-        return discount;
+        while(coffees >0 && bagels >0)
+        {
+            priceDiscountNewPrice[0] = 0.99 + 0.49;
+            priceDiscountNewPrice[2] = 1.25;
+            priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
+            coffees--;
+            bagels--;
+        }
+
+        this.discount += priceDiscountNewPrice[1];
     }
 
     public boolean removeFromBasket(String sku)
