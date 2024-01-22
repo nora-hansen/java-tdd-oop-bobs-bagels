@@ -139,7 +139,7 @@ public class Basket {
          Take Plain Bagel into account
          Coffee + Bagel discount (how do they combine?)
      */
-    public double getBagelDiscount()
+    public void getBagelDiscount()
     {
         Double[] priceDiscountNewPrice = new Double[] {0.0,0.0,0.0};
 
@@ -168,7 +168,6 @@ public class Basket {
             }
         }
         this.discount = priceDiscountNewPrice[1];
-        return discount;
     }
 
     public double getCoffeeBagelDiscount()
@@ -180,7 +179,7 @@ public class Basket {
         for(String sku : productCounts.keySet())
         {
             // Eligible for 12 item discount
-
+            System.out.println("Coffe");
         }
         this.discount = priceDiscountNewPrice[1];
         return discount;

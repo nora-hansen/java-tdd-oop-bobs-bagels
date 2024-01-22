@@ -6,7 +6,6 @@ public class Bagel implements Product {
     private final String sku;
     private final String variant;
 
-
     public Bagel (String sku, Inventory inv)
     {
         this.sku = sku;
