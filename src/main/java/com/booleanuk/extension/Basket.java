@@ -170,8 +170,7 @@ public class Basket {
 
     /*
         TODO
-         Take Plain into account
-         Other coffee types? Maybe not, too great a deal
+         Other coffee types? Maybe not, too great a deal. Bob is greedy
      */
     public void getCoffeeBagelDiscount()
     {

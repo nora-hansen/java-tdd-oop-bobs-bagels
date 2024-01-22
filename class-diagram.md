@@ -74,6 +74,7 @@ classDiagram
         - topText : String
         - bottomText : String[]
         - productCounts : HashMap< String, Integer >
+        - productDiscounts : HashMap< String, Double >
         - width : int
         + generateReceipt() : String
         + getPadding(String) : int
