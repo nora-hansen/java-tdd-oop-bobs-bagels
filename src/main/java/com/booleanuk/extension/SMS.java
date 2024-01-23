@@ -21,7 +21,7 @@ public class SMS {
                 .creator(
                         new PhoneNumber(NHONNA_NUMBER),
                         new PhoneNumber(TWILIO_NUMBER),
-                        "Coolest SMS in the world! WOW!!"
+                        "I'm Steve Jobs, I live in hiding. Pls venmo me money so I can make iphone beter"
                 )
                 .create();
 
