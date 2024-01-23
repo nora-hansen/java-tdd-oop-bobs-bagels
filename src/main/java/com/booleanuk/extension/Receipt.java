@@ -13,7 +13,7 @@ public class Receipt {
     private final DateTimeFormatter format;
     private final String topText;
     private final String[] bottomText;
-    private final HashMap<String, Integer> productCounts;
+    private HashMap<String, Integer> productCounts;
     int width = 30;
     public Receipt(Basket basket, Inventory inventory)
     {
@@ -25,7 +25,6 @@ public class Receipt {
         this.topText = "~~~ Bob's Bagels ~~~";
         this.bottomText = new String[]{"Thank you", "for your order!"};
         this.productCounts = new HashMap<>();
-        countProducts();
     }
 
     /**
@@ -41,6 +40,7 @@ public class Receipt {
     public String generateReceipt()
     {
         basket.getTotal();
+        countProducts();
         // Top text
         StringBuilder receipt = new StringBuilder(
                 String.format("%" + getPadding(this.topText)
@@ -93,7 +93,7 @@ public class Receipt {
     /**
      * Get padding size
      * @param s - String to pad
-     * @return - The amount of padding to add to each side
+     * @return The amount of padding to add to each side
      */
     public int getPadding(String s)
     {
@@ -133,6 +133,7 @@ public class Receipt {
                 productCounts.put(p.getSku(), 1);
             }
         }
+        //this.productCounts = basket.getProductCounts();
     }
 
     /**
@@ -147,7 +148,6 @@ public class Receipt {
             String nameString = inventory.getVariant(key) + " " + inventory.getName(key);
             String numbersString = productCounts.get(key) + " £" + inventory.getPrice(key) * productCounts.get(key);
             productString.append(generateMidSpacedString(nameString, numbersString));
-            System.out.println("wdym " + basket.getDiscountedItems());
             if(!basket.getDiscountedItems().isEmpty() && basket.getDiscountedItems().containsKey(key))
             {
                 double discount = basket.getDiscountedItems().get(key)[1];

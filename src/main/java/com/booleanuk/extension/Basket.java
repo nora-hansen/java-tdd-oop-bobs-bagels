@@ -7,7 +7,8 @@ public class Basket {
     Inventory inventory;    // To get information about products
     private final ArrayList<Product> basket;
     private final HashMap<String, Integer> productCounts;   // How many of each product is in the basket
-    private final HashMap<String, Double[]> discountedItems;
+    private final HashMap<String, Double[]> discountedItems;    // The discounted items, their original price,
+                                                                //  discount, and discounted price
     private int size;
     private double total;
     private double discount;
@@ -69,12 +70,50 @@ public class Basket {
     public boolean addToBasket(Product product, int amount)
     {
         boolean result = false;
+        if(amount > (size-(this.basket.size())))
+        {
+            System.out.println("Insufficient basket space");
+            return false;
+        }
         for(int i = 0; i < amount; i++)
         {
             result = addToBasket(product);
         }
         return result;
     }
+
+    /**
+     * Add a product to a count
+     * @param sku - Product to be counted
+     */
+    public void addToCount(String sku)
+    {
+        if(this.productCounts.containsKey(sku))
+        {
+            productCounts.put(sku, productCounts.get(sku) + 1);
+        }   else {
+            productCounts.put(sku, 1);
+        }
+    }
+
+    /**
+     * Calculate the total cost of items in the basket
+     * @see Product::getPrice()
+     * @see Basket::getBagelDiscount()
+     * @see Basket::getCoffeeBagelDiscount()
+     */
+    public void calculateTotal()
+    {
+        this.total = 0; // reset total in case calculations are already done
+        for(Product p : this.basket)
+        {
+            this.total += p.getPrice();
+        }
+        getBagelDiscount(); // 6 or 12 bagel discount
+        getCoffeeBagelDiscount();   // Coffee & Bagel discount
+        this.total -= this.discount;
+    }
+
 
     /**
      * Change the maximum size of the basket
@@ -120,53 +159,13 @@ public class Basket {
     }
 
     /**
-     * Calculate the total cost of items in the basket
-     * @see Product::getPrice()
-     * @see Basket::getBagelDiscount()
-     * @see Basket::getCoffeeBagelDiscount()
-     */
-    public void calculateTotal()
-    {
-        this.total = 0; // reset total in case calculations are already done
-        for(Product p : this.basket)
-        {
-            this.total += p.getPrice();
-        }
-        getBagelDiscount(); // 6 or 12 bagel discount
-        getCoffeeBagelDiscount();   // Coffee & Bagel discount
-        this.total -= this.discount;
-    }
-
-    public double getTotal()
-    {
-        calculateTotal();
-        this.total = Math.round(this.total*100);
-        this.total = this.total/100;
-        return this.total;
-    }
-
-    /**
-     * Add a product to a count
-     * @param sku - Product to be counted
-     */
-    public void addToCount(String sku)
-    {
-        if(this.productCounts.containsKey(sku))
-        {
-            productCounts.put(sku, productCounts.get(sku) + 1);
-        }   else {
-            productCounts.put(sku, 1);
-        }
-    }
-
-
-    /**
      * Get the discount for 12 bagels and/or 6 bagels
      */
     public void getBagelDiscount()
     {
-        Double[] priceDiscountNewPrice = new Double[] {0.0,0.0,0.0};
-
+        Double[] priceDiscountNewPrice = new Double[] {0.0,0.0,0.0};    // {Original price,
+                                                                        // (original price - discounted price),
+                                                                        // discounted price}
         for(String sku : productCounts.keySet())
         {
             // Eligible for 12 item discount
@@ -182,7 +181,7 @@ public class Basket {
             while(productCounts.get(sku) >= 6)
             {
                 priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 6.0;
-                                                                        // Different discount for Plain and others
+                // Different discount for Plain and others
                 priceDiscountNewPrice[2] = inventory.getVariant(sku).equals("Plain") ? 2.29d : 2.49d;
                 priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
                 productCounts.put(sku, productCounts.get(sku) - 6);
@@ -191,11 +190,6 @@ public class Basket {
         }
         this.discount += priceDiscountNewPrice[1];
     }
-
-    /*
-        TODO
-         Other coffee types? Maybe not, too great a deal. Bob is greedy
-     */
 
     /**
      * Get Coffee & Bagel discount
@@ -237,10 +231,14 @@ public class Basket {
             coffees--;
             plains--;
         }
-        if(priceDiscountNewPrice[1] > 0.0) discountedItems.put("COFB", priceDiscountNewPrice);
+        if(priceDiscountNewPrice[1] > 0.0) this.discountedItems.put("COFB", priceDiscountNewPrice);
         this.discount += priceDiscountNewPrice[1];
     }
 
+    /**
+     * Get the total discount as a double rounded to 2 decimals
+     * @return The calculated discount
+     */
     public double getDiscount()
     {
         this.discount = Math.round(this.discount*100);
@@ -248,9 +246,36 @@ public class Basket {
         return this.discount;
     }
 
+    /**
+     * Getter for the discounted items
+     * @return - discountedItems
+     */
     public HashMap<String, Double[]> getDiscountedItems() {
         return this.discountedItems;
     }
+
+    /**
+     * Getter for the productCounts
+     * @return - productCounts
+     */
+    public HashMap<String, Integer> getProductCounts()
+    {
+        return this.productCounts;
+    }
+
+    /**
+     * The total cost as a double rounded to two decimals
+     * @see Basket::calculateTotal()
+     * @return - The total cost
+     */
+    public double getTotal()
+    {
+        calculateTotal();
+        this.total = Math.round(this.total*100);
+        this.total = this.total/100;
+        return this.total;
+    }
+
 
     /**
      * Remove a product from the basket
@@ -298,6 +323,7 @@ public class Basket {
 
     /**
      * Show the price of one product
+     * @see Inventory::getProductString(...)
      * @param product - Product to show price of
      */
     public void showPrices(String product)
@@ -310,6 +336,7 @@ public class Basket {
 
     /**
      * Show the price of multiple products
+     * @see Inventory::getProductString(...)
      * @param products - Products to show price of
      */
     public void showPrices(String[] products)
