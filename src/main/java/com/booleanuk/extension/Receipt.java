@@ -93,7 +93,7 @@ public class Receipt {
     /**
      * Get padding size
      * @param s - String to pad
-     * @return
+     * @return The amount of padding needed
      */
     public int getPadding(String s)
     {
