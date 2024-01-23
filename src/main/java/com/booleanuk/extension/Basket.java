@@ -350,4 +350,10 @@ public class Basket {
 
         System.out.print(prices);
     }
+
+    public void messageOrder()
+    {
+        SMS sms = new SMS(inventory);
+        sms.sendOrderMessage(productCounts);
+    }
 }

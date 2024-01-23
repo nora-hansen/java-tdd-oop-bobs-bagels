@@ -6,15 +6,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class Receipt {
-    Basket basket;
-    Inventory inventory;
+    private final Basket basket;
+    private final Inventory inventory;
     private final LocalDate date;
     private final LocalTime time;
     private final DateTimeFormatter format;
     private final String topText;
     private final String[] bottomText;
-    private HashMap<String, Integer> productCounts;
-    int width = 30;
+    private final HashMap<String, Integer> productCounts;
+    private int width = 30;
     public Receipt(Basket basket, Inventory inventory)
     {
         this.date = LocalDate.now();
