@@ -163,6 +163,7 @@ double discount
 | Classes           | Methods                              | Member Variables               | Scenario | Output/Result |
 |-------------------|--------------------------------------|--------------------------------|----------|---------------|
 | Basket, Inventory | Basket::getBagelDiscount()           |                                |          |               |
+|                   | Basket::getCoffeeBagelDiscount()     |                                |          |               |
 |                   | Basket::addToBasket(Product product) | priceDiscountNewPrice Double[] |          |               |
 
 ````dtd
