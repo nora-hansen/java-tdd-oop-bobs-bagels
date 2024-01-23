@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Basket {
-    Inventory inventory;
+    Inventory inventory;    // To get information about products
     private final ArrayList<Product> basket;
-    private final HashMap<String, Integer> productCounts;
+    private final HashMap<String, Integer> productCounts;   // How many of each product is in the basket
     private final HashMap<String, Double[]> discountedItems;
     private int size;
     private double total;
@@ -159,10 +159,6 @@ public class Basket {
         }
     }
 
-    /*
-    TODO
-         Add to receipt
-     */
 
     /**
      * Get the discount for 12 bagels and/or 6 bagels
@@ -241,7 +237,7 @@ public class Basket {
             coffees--;
             plains--;
         }
-        discountedItems.put("COFB", priceDiscountNewPrice);
+        if(priceDiscountNewPrice[1] > 0.0) discountedItems.put("COFB", priceDiscountNewPrice);
         this.discount += priceDiscountNewPrice[1];
     }
 

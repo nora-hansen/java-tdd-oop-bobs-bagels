@@ -38,6 +38,7 @@ public class BasketTest {
     {
         Inventory inventory = new Inventory();
         Basket basket = new Basket(inventory);
+        basket.changeSize(10);
         Product onionBagel = new Bagel("BGLO", inventory);
 
         basket.addToBasket(onionBagel);

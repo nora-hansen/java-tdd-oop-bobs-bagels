@@ -93,7 +93,7 @@ public class Receipt {
     /**
      * Get padding size
      * @param s - String to pad
-     * @return
+     * @return - The amount of padding to add to each side
      */
     public int getPadding(String s)
     {
@@ -147,7 +147,8 @@ public class Receipt {
             String nameString = inventory.getVariant(key) + " " + inventory.getName(key);
             String numbersString = productCounts.get(key) + " £" + inventory.getPrice(key) * productCounts.get(key);
             productString.append(generateMidSpacedString(nameString, numbersString));
-            if(!basket.getDiscountedItems().isEmpty())
+            System.out.println("wdym " + basket.getDiscountedItems());
+            if(!basket.getDiscountedItems().isEmpty() && basket.getDiscountedItems().containsKey(key))
             {
                 double discount = basket.getDiscountedItems().get(key)[1];
                 discount = Math.round(discount*100);
@@ -175,8 +176,8 @@ public class Receipt {
 
     /**
      * Generate a string with the leftString on the far left, and rightString on the far Right
-     * @param leftString
-     * @param rightString
+     * @param leftString - String to place on the far left
+     * @param rightString - String to place on the far right
      * @return The generated string
      */
     public String generateMidSpacedString(String leftString, String rightString)
