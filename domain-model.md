@@ -165,6 +165,7 @@ double discount
 | Basket, Inventory | Basket::getBagelDiscount()           |                                |          |               |
 |                   | Basket::getCoffeeBagelDiscount()     |                                |          |               |
 |                   | Basket::addToBasket(Product product) | priceDiscountNewPrice Double[] |          |               |
+|                   | Basket::addToCount(Product product)  |                                |          |               |
 
 ````dtd
 12. 
