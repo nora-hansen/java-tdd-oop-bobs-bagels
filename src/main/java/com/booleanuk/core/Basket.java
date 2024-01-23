@@ -28,12 +28,14 @@ public class Basket {
                 basket.add(product);
                 this.total += product.getPrice();   // Add cost to total
                 inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
-
-                System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
+                // Success!
+                System.out.println("1 " + product.getVariant() + " "
+                        + product.getName() + " has been added to your basket!");
                 return true;
-
+                // Basket is full...
             }   else {
-                System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");
+                System.out.println("Could not add " + product.getVariant() + " "
+                        + product.getName() + " to basket, your basket is full!");
                 return false;
             }
         }
