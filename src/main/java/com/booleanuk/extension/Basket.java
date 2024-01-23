@@ -77,6 +77,24 @@ public class Basket {
     }
 
     /**
+     * Calculate the total cost of items in the basket
+     * @see Product::getPrice()
+     * @see Basket::getBagelDiscount()
+     * @see Basket::getCoffeeBagelDiscount()
+     */
+    public void calculateTotal()
+    {
+        this.total = 0; // reset total in case calculations are already done
+        for(Product p : this.basket)
+        {
+            this.total += p.getPrice();
+        }
+        getBagelDiscount(); // 6 or 12 bagel discount
+        getCoffeeBagelDiscount();   // Coffee & Bagel discount
+        this.total -= this.discount;
+    }
+
+    /**
      * Change the maximum size of the basket
      * @param size - Desired size
      * @return True/False if action was successful.
@@ -117,24 +135,6 @@ public class Basket {
     public ArrayList<Product> getBasket()
     {
         return this.basket;
-    }
-
-    /**
-     * Calculate the total cost of items in the basket
-     * @see Product::getPrice()
-     * @see Basket::getBagelDiscount()
-     * @see Basket::getCoffeeBagelDiscount()
-     */
-    public void calculateTotal()
-    {
-        this.total = 0; // reset total in case calculations are already done
-        for(Product p : this.basket)
-        {
-            this.total += p.getPrice();
-        }
-        getBagelDiscount(); // 6 or 12 bagel discount
-        getCoffeeBagelDiscount();   // Coffee & Bagel discount
-        this.total -= this.discount;
     }
 
     public double getTotal()
@@ -195,11 +195,6 @@ public class Basket {
         }
         this.discount += priceDiscountNewPrice[1];
     }
-
-    /*
-        TODO
-         Other coffee types? Maybe not, too great a deal. Bob is greedy
-     */
 
     /**
      * Get Coffee & Bagel discount
@@ -328,6 +323,9 @@ public class Basket {
         System.out.print(prices);
     }
 
+    /**
+     * Sends order summary as an SMS
+     */
     public void messageOrder()
     {
         SMS sms = new SMS(inventory);
