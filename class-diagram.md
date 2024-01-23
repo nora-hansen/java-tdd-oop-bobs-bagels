@@ -83,7 +83,7 @@ classDiagram
         + getDateTime : String
         + generateProductStrings : void
     }
-    class SMS{
+    class SMSOutbound{
         - ACCOUNT_SID : String
         - AUTH_TOKEN : String
         - NUMBER : String
