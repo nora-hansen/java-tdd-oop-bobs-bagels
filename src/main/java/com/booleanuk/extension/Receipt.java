@@ -133,7 +133,6 @@ public class Receipt {
                 productCounts.put(p.getSku(), 1);
             }
         }
-        //this.productCounts = basket.getProductCounts();
     }
 
     /**

@@ -35,7 +35,9 @@ classDiagram
             
         }
     class Bagel {
-
+        - fillings : ArrayList < Filling >
+        + addFilling(Filling) : void
+        + getFillings() : ArrayList< Filling >
     }
     class Filling {
 
@@ -88,7 +90,7 @@ classDiagram
     BobsBagels ..> Basket
     BobsBagels ..> Inventory
     Receipt ..> Basket : 1..1
-    Product ..|> Bagel
-    Product ..|> Coffee
-    Product ..|> Filling
+    Product <|-- Bagel
+    Product <|-- Coffee
+    Product <|-- Filling
 ````
