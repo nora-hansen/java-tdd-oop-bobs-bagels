@@ -6,41 +6,71 @@ public class Basket {
     private final ArrayList<Product> basket;
     private int size;
     private double total;
+    private Inventory inv;
 
-    public Basket()
+    public Basket(Inventory inventory)
     {
         this.basket = new ArrayList<>();
         this.size = 10;
         this.total = 0.0;
+        this.inv = inventory;
     }
 
-    public boolean addToBasket(Inventory inv, Product product)
+    public boolean addToBasket(Product product)
     {
         // Check if product stock is more than zero
         if(!this.checkStock(inv, product.getSku())) {
             System.out.println("Product is out of stock");
             return false;
         }
+
         // Check if the product name is valid
         if(!product.getName().isEmpty())
         {
-            if(basket.size() < size) {  // Is basket full?
-                basket.add(product);
-                this.total += product.getPrice();   // Add cost to total
-                inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
-
-                System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
-                return true;
-
-            }   else {
-                System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");
-                return false;
-            }
+            /*if(!product.getName().equals("Filling"))*/
+                return addBagelCoffee(product);
+            /*else
+                return addFilling(product);*/
         }
         // Will change this to maybe exceptions? Maybe.
         System.out.println("Could not add product to basket, because product is null");
         return false;
     }
+
+    public boolean addBagelCoffee(Product product)
+    {
+        if(basket.size() < size) {  // Is basket full?
+            basket.add(product);
+            this.total += product.getPrice();   // Add cost to total
+            inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
+
+            System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
+            return true;
+
+        }   else {
+            System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");
+            return false;
+        }
+    }
+
+    /*
+    public boolean addFilling(Filling filling)
+    {
+        if(basket.size() < size) {  // Is basket full?
+            for(int i = basket.size()-1; i > 0; i--)
+            {
+                if(basket.get(i).getName().equals("Bagel"))
+                {
+                    basket.get(i).addFilling(filling);
+                }
+            }
+
+        }   else {
+            System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");
+            return false;
+        }
+    }
+    */
 
     public boolean addToBasket(Product product, int amount, Inventory inv)
     {
