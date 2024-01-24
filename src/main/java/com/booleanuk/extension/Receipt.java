@@ -6,8 +6,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class Receipt {
-    Basket basket;
-    Inventory inventory;
+    private final Basket basket;
+    private final Inventory inventory;
     private final LocalDate date;
     private final LocalTime time;
     private final DateTimeFormatter format;

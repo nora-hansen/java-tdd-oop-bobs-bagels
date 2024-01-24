@@ -119,6 +119,7 @@ public class Basket {
     }
 
     /**
+
      * Add a product to a count
      * @param sku - Product to be counted
      */
@@ -380,5 +381,14 @@ public class Basket {
         }
 
         System.out.print(prices);
+    }
+
+    /**
+     * Sends order summary as an SMS
+     */
+    public void messageOrder()
+    {
+        SMS sms = new SMS(inventory);
+        sms.sendOrderMessage(productCounts);
     }
 }

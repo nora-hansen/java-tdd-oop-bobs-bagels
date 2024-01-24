@@ -32,6 +32,7 @@ public class Basket {
         // Check if the product name is valid
         if(!product.getName().isEmpty())
         {
+
             if(!product.getName().equals("Filling"))
                 return addBagelCoffee(product);
             else

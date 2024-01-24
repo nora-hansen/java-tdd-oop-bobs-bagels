@@ -200,3 +200,15 @@ I want to know how much money I've saved on special offers
 |                 | Receipt::generateTotalString()                   | int padding                   |                                          |                                                               |
 |                 | Receipt::generateMidSpacedString(String, String) |                               |                                          |                                                               |
 
+````dtd
+14.
+As a customer,
+So I know when I get my grub,
+I want to receive a confirmation text message on my phone
+````
+
+| Classes     | Methods                                                           | Member Variables           | Scenario                      | Output/Result                                                                                       |
+|-------------|-------------------------------------------------------------------|----------------------------|-------------------------------|-----------------------------------------------------------------------------------------------------|
+| SMSOutbound | SMSOutbound::sendMessage(String messageBody)                      | StringBuilder orderSummary | There are items in the basket | A message is sent to the customer with a summary of the items, as well as an estimted delivery time |
+|             | SMSOutbound::sendOrderMessage(HashMap<String, Int> productCounts) |                            |                               |                                                                                                     |
+|             | Inventory::getName(String sku)                                    |                            |                               |                                                                                                     |

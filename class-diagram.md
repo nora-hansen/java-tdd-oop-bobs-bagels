@@ -85,11 +85,23 @@ classDiagram
         + getDateTime : String
         + generateProductStrings : void
     }
+    class SMSOutbound{
+        - ACCOUNT_SID : String
+        - AUTH_TOKEN : String
+        - NUMBER : String
+        - TWILIO_NUMBER : String
+        - inventory : INVENTORY
+        - random : Random
+        + init() : void
+        + sendMessage(String) : void
+        + sendOrderMessage(HashMap< String, Integer >) : void
+    }
     Basket ..> Product : 0..*
     Product ..> Inventory : 1..1
     BobsBagels ..> Basket
     BobsBagels ..> Inventory
     Receipt ..> Basket : 1..1
+
     Product <|-- Bagel
     Product <|-- Coffee
     Product <|-- Filling

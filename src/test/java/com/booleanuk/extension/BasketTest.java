@@ -405,4 +405,27 @@ public class BasketTest {
 
         Assertions.assertEquals(5.03, basket.getTotal());
     }
+
+    @Test
+    public void testMessageTwilio()
+    {
+        Inventory inventory = new Inventory();
+        Basket basket = new Basket(inventory);
+        Product onionBagel = new Bagel("BGLO", inventory);
+        Product plainBagel = new Bagel("BGLP", inventory);
+        Product blackCoffee = new Coffee("COFB", inventory);
+        Product latteCoffee = new Coffee("COFL", inventory);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(onionBagel);
+        basket.addToBasket(plainBagel);
+        basket.addToBasket(blackCoffee);
+        basket.addToBasket(latteCoffee);
+
+        basket.messageOrder();
+        Assertions.assertTrue(true);
+    }
 }
