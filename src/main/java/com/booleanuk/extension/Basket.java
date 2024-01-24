@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Basket {
-    Inventory inventory;    // To get information about products
+    Inventory inv;    // To get information about products
     private final ArrayList<Product> basket;
     private final HashMap<String, Integer> productCounts;   // How many of each product is in the basket
     private final HashMap<String, Double[]> discountedItems;    // The discounted items, their original price,
@@ -15,7 +15,7 @@ public class Basket {
 
     public Basket(Inventory inventory)
     {
-        this.inventory = inventory;
+        this.inv = inventory;
         this.basket = new ArrayList<>();
         this.discountedItems = new HashMap<>();
         this.productCounts = new HashMap<>();
@@ -24,11 +24,6 @@ public class Basket {
         this.discount = 0.0;
     }
 
-    /**
-     * Adds a Product object to the basket
-     * @param product - The product to be added to the basket
-     * @return True/False Indicating if addition was successful or not
-     */
     public boolean addToBasket(Product product)
     {
         // Check if product stock is more than zero
@@ -36,28 +31,70 @@ public class Basket {
             System.out.println("Product is out of stock");
             return false;
         }
+
         // Check if the product name is valid
         if(!product.getName().isEmpty())
         {
-            if(basket.size() < size) {  // Is basket full?
-                basket.add(product);
-                addToCount(product.getSku());
-                this.inventory.setStock(product.getSku(), this.inventory.getStock(product.getSku()) -1);
-
-                System.out.println("1 " + product.getVariant()
-                        + " " + product.getName()
-                        + " has been added to your basket!");
-                return true;
-            }   else {
-                System.out.println("Could not add "
-                        + product.getVariant() + " "
-                        + product.getName() + " to basket, your basket is full!");
-                return false;
-            }
+            if(!product.getName().equals("Filling"))
+                return addBagelCoffee(product);
+            else
+                return addFilling((Filling) product);
         }
         // Will change this to maybe exceptions? Maybe.
         System.out.println("Could not add product to basket, because product is null");
         return false;
+    }
+
+    public boolean addBagelCoffee(Product product)
+    {
+        if(basket.size() < size) {  // Is basket full?
+            basket.add(product);
+            this.total += product.getPrice();   // Add cost to total
+            inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
+            addToCount(product.getSku());
+
+            System.out.println("1 " + product.getVariant()
+                    + " " + product.getName()
+                    + " has been added to your basket!");
+            return true;
+
+        }   else {
+            System.out.println("Could not add " + product.getVariant()
+                    + " " + product.getName()
+                    + " to basket, your basket is full!");
+            return false;
+        }
+    }
+
+    /**
+     * Add filling to last bagel
+     * @param filling - The filling object to add
+     * @return True/False if the action was successful
+     */
+    public boolean addFilling(Filling filling)
+    {
+        if(basket.size() < size) {  // Is basket full?
+            for(int i = basket.size()-1; i > 0; i--)
+            {
+                if(basket.get(i) instanceof Bagel)
+                {
+                    System.out.println("I ran");
+                    ((Bagel) basket.get(i)).addFilling(filling);
+                    inv.setStock(filling.getSku(), inv.getStock(filling.getSku()) -1);
+                    addToCount(filling.getSku());
+                    return true;
+                }
+                System.out.println("Should not run");
+            }
+            System.out.println("No bagels are in basket, filling added anyway");
+            addBagelCoffee(filling);
+            return true;
+        }   else {
+            System.out.println("Could not add "
+                    + filling.getVariant() + " "
+                    + filling.getName() + " to basket, your basket is full!");
+            return false;
+        }
     }
 
     /**
@@ -146,7 +183,7 @@ public class Basket {
      */
     public boolean checkStock(String sku)
     {
-        return this.inventory.getStock(sku) > 0;
+        return this.inv.getStock(sku) > 0;
     }
 
     /**
@@ -171,7 +208,7 @@ public class Basket {
             // Eligible for 12 item discount
             while(productCounts.get(sku) >= 12)
             {
-                priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 12.0;
+                priceDiscountNewPrice[0] = this.inv.getPrice(sku) * 12.0;
                 priceDiscountNewPrice[2] = 3.99d;
                 priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];    // Find difference
                 productCounts.put(sku, productCounts.get(sku) - 12);
@@ -180,9 +217,9 @@ public class Basket {
             // Eligible for 6 item discount
             while(productCounts.get(sku) >= 6)
             {
-                priceDiscountNewPrice[0] = this.inventory.getPrice(sku) * 6.0;
+                priceDiscountNewPrice[0] = this.inv.getPrice(sku) * 6.0;
                 // Different discount for Plain and others
-                priceDiscountNewPrice[2] = inventory.getVariant(sku).equals("Plain") ? 2.29d : 2.49d;
+                priceDiscountNewPrice[2] = inv.getVariant(sku).equals("Plain") ? 2.29d : 2.49d;
                 priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
                 productCounts.put(sku, productCounts.get(sku) - 6);
                 discountedItems.put(sku, priceDiscountNewPrice);
@@ -204,10 +241,10 @@ public class Basket {
         {
             while(productCounts.get(sku) > 0) {
                 // Eligible for 12 item discount
-                if (inventory.getVariant(sku).equals("Black"))
+                if (inv.getVariant(sku).equals("Black"))
                     coffees++;
-                else if (inventory.getName(sku).equals("Bagel")) {
-                    if (inventory.getVariant(sku).equals("Plain"))
+                else if (inv.getName(sku).equals("Bagel")) {
+                    if (inv.getVariant(sku).equals("Plain"))
                         plains++;
                     else
                         bagels++;
@@ -303,20 +340,20 @@ public class Basket {
     public void showPrices()
     {
         String prices = "Prices:\n" +
-                this.inventory.getProductString("BGLO") + "\n" +
-                this.inventory.getProductString("BGLP") + "\n" +
-                this.inventory.getProductString("BGLE") + "\n" +
-                this.inventory.getProductString("BGLS") + "\n" +
-                this.inventory.getProductString("COFB") + "\n" +
-                this.inventory.getProductString("COFW") + "\n" +
-                this.inventory.getProductString("COFC") + "\n" +
-                this.inventory.getProductString("COFL") + "\n" +
-                this.inventory.getProductString("FILB") + "\n" +
-                this.inventory.getProductString("FILE") + "\n" +
-                this.inventory.getProductString("FILC") + "\n" +
-                this.inventory.getProductString("FILX") + "\n" +
-                this.inventory.getProductString("FILS") + "\n" +
-                this.inventory.getProductString("FILH") + "\n";
+                this.inv.getProductString("BGLO") + "\n" +
+                this.inv.getProductString("BGLP") + "\n" +
+                this.inv.getProductString("BGLE") + "\n" +
+                this.inv.getProductString("BGLS") + "\n" +
+                this.inv.getProductString("COFB") + "\n" +
+                this.inv.getProductString("COFW") + "\n" +
+                this.inv.getProductString("COFC") + "\n" +
+                this.inv.getProductString("COFL") + "\n" +
+                this.inv.getProductString("FILB") + "\n" +
+                this.inv.getProductString("FILE") + "\n" +
+                this.inv.getProductString("FILC") + "\n" +
+                this.inv.getProductString("FILX") + "\n" +
+                this.inv.getProductString("FILS") + "\n" +
+                this.inv.getProductString("FILH") + "\n";
 
         System.out.print(prices);
     }
@@ -329,7 +366,7 @@ public class Basket {
     public void showPrices(String product)
     {
         String prices = "Prices:\n" +
-                this.inventory.getProductString(product) + "\n";
+                this.inv.getProductString(product) + "\n";
 
         System.out.print(prices);
     }
@@ -345,7 +382,7 @@ public class Basket {
 
         prices.append("Prices:\n");
         for(String s : products) {
-            prices.append(this.inventory.getProductString(s)).append("\n");
+            prices.append(this.inv.getProductString(s)).append("\n");
         }
 
         System.out.print(prices);
