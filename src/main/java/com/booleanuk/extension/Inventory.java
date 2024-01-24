@@ -10,6 +10,7 @@ public class Inventory {
 
     public Inventory()
     {
+        // The price of each item
         this.prices = new HashMap<>(){
             {
                 put("BGLO", 0.49);
@@ -27,7 +28,7 @@ public class Inventory {
                 put("FILS", 0.12);
                 put("FILH", 0.12);
             }};
-
+        // The amount of each left
         this.stock = new HashMap<>(){
             {
                 put("BGLO", 50);
@@ -45,7 +46,7 @@ public class Inventory {
                 put("FILS", 50);
                 put("FILH", 50);
             }};
-
+        // The name of each item
         this.names = new HashMap<>(){
             {
                 put("BGLO", "Bagel");
@@ -63,7 +64,7 @@ public class Inventory {
                 put("FILS", "Filling");
                 put("FILH", "Filling");
             }};
-
+        // What variant the items are
         this.variants = new HashMap<>(){
             {
                 put("BGLO", "Onion");
@@ -83,6 +84,11 @@ public class Inventory {
             }};
     }
 
+    /**
+     * Checks the map of names to find the correct value
+     * @param sku
+     * @return
+     */
     public String getName(String sku)
     {
         if(this.names.get(sku) != null)
@@ -92,6 +98,11 @@ public class Inventory {
         return "";
     }
 
+    /**
+     * Checks the map of variants to find the correct value
+     * @param sku
+     * @return
+     */
     public String getVariant(String sku)
     {
         if(this.variants.get(sku) != null)
@@ -101,6 +112,11 @@ public class Inventory {
         return "";
     }
 
+    /**
+     * Checks the map of prices to find the correct value
+     * @param sku
+     * @return
+     */
     public Double getPrice(String sku)
     {
         if(this.prices.get(sku) != null)
@@ -110,6 +126,11 @@ public class Inventory {
         return -1.0;
     }
 
+    /**
+     * Checks the map of stack to find the correct value
+     * @param sku
+     * @return
+     */
     public int getStock(String sku)
     {
         if(this.stock.get(sku) != null)
@@ -119,6 +140,11 @@ public class Inventory {
         return -1;
     }
 
+    /**
+     * Sets the amount items left for a specific product
+     * @param sku
+     * @param amount
+     */
     public void setStock(String sku, int amount)
     {
         if(this.stock.get(sku) != null)
@@ -127,7 +153,11 @@ public class Inventory {
         }
     }
 
-
+    /**
+     * Generates a string of the name and variant for a product
+     * @param sku
+     * @return
+     */
     public String getProductString(String sku)
     {
         return getVariant(sku) + " " +

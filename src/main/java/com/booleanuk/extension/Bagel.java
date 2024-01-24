@@ -1,36 +1,17 @@
 package com.booleanuk.extension;
 
-public class Bagel implements Product {
-    private final String name;
-    private final Double price;
-    private final String sku;
-    private final String variant;
+import java.util.ArrayList;
 
-    public Bagel (String sku, Inventory inv)
+public class Bagel extends Product {
+    ArrayList<Filling> fillings;
+    public Bagel(String sku, Inventory inv)
     {
-        this.sku = sku;
-        this.price = inv.getPrice(sku);
-        this.name = inv.getName(sku);
-        this.variant = inv.getVariant(sku);
+        super(sku, inv);
+        this.fillings = new ArrayList<>();
     }
 
-    public String getName()
+    public void addFilling(Filling filling)
     {
-        return this.name;
-    }
-
-    public double getPrice()
-    {
-        return this.price;
-    }
-
-    public String getSku()
-    {
-        return this.sku;
-    }
-
-    public String getVariant()
-    {
-        return this.variant;
+        this.fillings.add(filling);
     }
 }

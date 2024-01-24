@@ -13,8 +13,8 @@ public class Receipt {
     private final DateTimeFormatter format;
     private final String topText;
     private final String[] bottomText;
-    private final HashMap<String, Integer> productCounts;
-    private int width = 30;
+    private HashMap<String, Integer> productCounts;
+    int width = 30;
     public Receipt(Basket basket, Inventory inventory)
     {
         this.date = LocalDate.now();
@@ -25,7 +25,6 @@ public class Receipt {
         this.topText = "~~~ Bob's Bagels ~~~";
         this.bottomText = new String[]{"Thank you", "for your order!"};
         this.productCounts = new HashMap<>();
-        countProducts();
     }
 
     /**
@@ -41,6 +40,7 @@ public class Receipt {
     public String generateReceipt()
     {
         basket.getTotal();
+        countProducts();
         // Top text
         StringBuilder receipt = new StringBuilder(
                 String.format("%" + getPadding(this.topText)
@@ -93,7 +93,7 @@ public class Receipt {
     /**
      * Get padding size
      * @param s - String to pad
-     * @return The amount of padding needed
+     * @return The amount of padding to add to each side
      */
     public int getPadding(String s)
     {
@@ -147,7 +147,7 @@ public class Receipt {
             String nameString = inventory.getVariant(key) + " " + inventory.getName(key);
             String numbersString = productCounts.get(key) + " £" + inventory.getPrice(key) * productCounts.get(key);
             productString.append(generateMidSpacedString(nameString, numbersString));
-            if(!basket.getDiscountedItems().isEmpty())
+            if(!basket.getDiscountedItems().isEmpty() && basket.getDiscountedItems().containsKey(key))
             {
                 double discount = basket.getDiscountedItems().get(key)[1];
                 discount = Math.round(discount*100);
@@ -175,8 +175,8 @@ public class Receipt {
 
     /**
      * Generate a string with the leftString on the far left, and rightString on the far Right
-     * @param leftString
-     * @param rightString
+     * @param leftString - String to place on the far left
+     * @param rightString - String to place on the far right
      * @return The generated string
      */
     public String generateMidSpacedString(String leftString, String rightString)

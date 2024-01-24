@@ -11,7 +11,7 @@ int size
 | Classes                    | Methods                                             | Member Variables | Scenario                                         | Output/Result                                     |
 |----------------------------|-----------------------------------------------------|------------------|--------------------------------------------------|---------------------------------------------------|
 | Basket, Product, Inventory | Basket::addToBasket(Product bagel)                  |                  | I want to add an onion bagel, basket is not full | Add Product to products, return true              |
-|                            | Basket::checkStock(Inventory inventory, String sku) |                  |                                                  |                                                   |
+| Bagel, Coffee, Filling     | Basket::checkStock(Inventory inventory, String sku) |                  |                                                  |                                                   |
 |                            | Product::getName()                                  |                  |                                                  |                                                   |
 |                            | Product::getPrice()                                 |                  |                                                  |                                                   |
 |                            | Product::getSku()                                   |                  | I want to add a dirt bagel, basket is not full   | Show message saying type is invalid, return false |
@@ -29,12 +29,11 @@ I'd like to remove a bagel from my basket.
 
 ArrayList<Product> products
 
-| Classes                    | Methods                                          | Member Variables | Scenario                                                                              | Output/Result                                        |
-|----------------------------|--------------------------------------------------|------------------|---------------------------------------------------------------------------------------|------------------------------------------------------|
-| Basket, Product, Inventory | Basket::removeFromBasket(String sku)             |                  | I want to remove an existing basket item                                              | Product is removed, return true                      |
-|                            | Product::getSku()                                |                  |                                                                                       |                                                      |
-|                            |                                                  |                  | I want to remove a non-existing item                                                  | Show message saying product not in basket            |
-|                            | Basket::removeFromBasket(String sku, int amount) |                  | I want to remove a number of the same product. Equally or more products are in basket | Multiple of the same product is removed, return true |
+| Classes                    | Methods                              | Member Variables | Scenario                                 | Output/Result                                        |
+|----------------------------|--------------------------------------|------------------|------------------------------------------|------------------------------------------------------|
+| Basket, Product, Inventory | Basket::removeFromBasket(String sku) |                  | I want to remove an existing basket item | Product is removed, return true                      |
+|                            | Product::getSku()                    |                  |                                          |                                                      |
+|                            |                                      |                  | I want to remove a non-existing item     | Show message saying product not in basket            |
 
 ````dtd
 3.
@@ -49,7 +48,6 @@ int size
 | Classes                    | Methods                              | Member Variables | Scenario                                     | Output/Result                      |
 |----------------------------|--------------------------------------|------------------|----------------------------------------------|------------------------------------|
 | Basket, Product, Inventory | Basket::addToBasket(Product product) |                  | I want to add an onion bagel, basket is full | Show message to user, return false |
-|                            |                                      |                  |                                              |                                    |
 
 ````dtd
 4.
@@ -165,6 +163,7 @@ double discount
 | Basket, Inventory | Basket::getBagelDiscount()           |                                |          |               |
 |                   | Basket::getCoffeeBagelDiscount()     |                                |          |               |
 |                   | Basket::addToBasket(Product product) | priceDiscountNewPrice Double[] |          |               |
+|                   | Basket::addToCount(Product product)  |                                |          |               |
 
 ````dtd
 12. 
