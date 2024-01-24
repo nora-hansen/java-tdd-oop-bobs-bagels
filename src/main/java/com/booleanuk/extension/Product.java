@@ -2,10 +2,10 @@ package com.booleanuk.extension;
 
 
 public class Product {
-    private final String name;
-    private final Double price;
-    private final String sku;
-    private final String variant;
+    final String name;
+    final Double price;
+    final String sku;
+    final String variant;
 
     public Product (String sku, Inventory inv)
     {

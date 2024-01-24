@@ -6,16 +6,21 @@ public class Basket {
     private final ArrayList<Product> basket;
     private int size;
     private double total;
-    private Inventory inv;
+    private final Inventory inv;
 
     public Basket(Inventory inventory)
     {
         this.basket = new ArrayList<>();
-        this.size = 10;
-        this.total = 0.0;
-        this.inv = inventory;
+        this.size   = 10;
+        this.total  = 0.0;
+        this.inv    = inventory;
     }
 
+    /**
+     * Add a product to the basket
+     * @param product - A Product object (Bagel/Coffee/Filling)
+     * @return True/False indicating if the action was successful or not
+     */
     public boolean addToBasket(Product product)
     {
         // Check if product stock is more than zero
@@ -28,7 +33,7 @@ public class Basket {
         if(!product.getName().isEmpty())
         {
             if(!product.getName().equals("Filling"))
-              return addBagelCoffee(product);
+                return addBagelCoffee(product);
             else
                 return addFilling((Filling) product);
         }
@@ -37,6 +42,11 @@ public class Basket {
         return false;
     }
 
+    /**
+     * Executed if a product to be added to basket is Bagel or Coffee
+     * @param product - Bagel or Coffee
+     * @return True/False indicating if the action was successful or not
+     */
     public boolean addBagelCoffee(Product product)
     {
         if(basket.size() < size) {  // Is basket full?
@@ -58,23 +68,24 @@ public class Basket {
     }
 
     /**
-     * Add filling to last bagel
+     * Add filling to the last bagel added to basket
      * @param filling - The filling object to add
      * @return True/False if the action was successful
      */
     public boolean addFilling(Filling filling)
     {
         if(basket.size() < size) {  // Is basket full?
-            for(int i = basket.size()-1; i > 0; i--)
+            for(int i = basket.size()-1; i > 0; i--)    // Start at the last added
             {
-                if(basket.get(i) instanceof Bagel)
+                if(basket.get(i) instanceof Bagel)  // Check if the current product is a bagel
                 {
                     ((Bagel) basket.get(i)).addFilling(filling);
                     return true;
                 }
             }
             System.out.println("No bagels are in basket, filling added anyway");
-            addBagelCoffee(filling);
+            addBagelCoffee(filling);    // If no bagels present, use addCoffeeBagel to add filling
+                                        // There is definitely a better way to do it...
             return true;
         }   else {
             System.out.println("Could not add "
@@ -85,29 +96,26 @@ public class Basket {
     }
 
 
-    public boolean addToBasket(Product product, int amount, Inventory inv)
+    /**
+     * Adds a product to the basket a number of times
+     * @see com.booleanuk.extension.Basket ::addToBasket(...)
+     * @param product - Product to be added to basket
+     * @param amount - Amount of products to add
+     * @return True/False indicating if addition was successful or not
+     */
+    public boolean addToBasket(Product product, int amount)
     {
-        if(!this.checkStock(inv, product.getSku())) {
-            System.out.println("Product is out of stock");
+        boolean result = false;
+        if(amount > (size-(this.basket.size())))
+        {
+            System.out.println("Insufficient basket space");
             return false;
         }
-        if(!product.getName().isEmpty())
+        for(int i = 0; i < amount; i++)
         {
-            if(basket.size() < size - amount) {
-                for(int i = 0; i < amount; i++)
-                {
-                    basket.add(product);
-                    inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
-                }
-                System.out.println(amount + " " + product.getName() + "s has been added to your basket!");
-                return true;
-            }   else {
-                System.out.println("Could not add " + product.getName() + " to basket, your basket is full!");
-                return false;
-            }
+            result = addToBasket(product);
         }
-        System.out.println("Could not add product to basket, because product is null");
-        return false;
+        return result;
     }
 
     public boolean changeSize(int size)

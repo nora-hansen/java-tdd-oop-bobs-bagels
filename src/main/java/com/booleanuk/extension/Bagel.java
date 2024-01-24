@@ -14,9 +14,4 @@ public class Bagel extends Product {
     {
         this.fillings.add(filling);
     }
-
-    public ArrayList<Filling> getFillings()
-    {
-        return this.fillings;
-    }
 }

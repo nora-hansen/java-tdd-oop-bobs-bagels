@@ -10,6 +10,9 @@ public class BobsBagels {
     Inventory inventory;
     Basket basket;
 
+    /*
+    Not implemented
+     */
     public BobsBagels()
     {
         this.mainMenu = """

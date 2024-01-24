@@ -62,7 +62,7 @@ public class BasketTest {
         Product onionBagel = new Bagel("BGLO", inventory);
 
         Assertions.assertNotNull(onionBagel);
-        Assertions.assertTrue(basket.addToBasket(onionBagel, 3, inventory));
+        Assertions.assertTrue(basket.addToBasket(onionBagel, 3));
     }
 
     @Test
@@ -81,7 +81,7 @@ public class BasketTest {
         basket.addToBasket(onionBagel);
 
         Assertions.assertNotNull(onionBagel);
-        Assertions.assertFalse(basket.addToBasket(onionBagel, 3, inventory));
+        Assertions.assertFalse(basket.addToBasket(onionBagel, 3));
     }
 
     @Test

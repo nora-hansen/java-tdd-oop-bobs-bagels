@@ -78,13 +78,12 @@ public class Basket {
             {
                 if(basket.get(i) instanceof Bagel)
                 {
-                    System.out.println("I ran");
+                    basket.add(filling);
                     ((Bagel) basket.get(i)).addFilling(filling);
                     inv.setStock(filling.getSku(), inv.getStock(filling.getSku()) -1);
                     addToCount(filling.getSku());
                     return true;
                 }
-                System.out.println("Should not run");
             }
             System.out.println("No bagels are in basket, filling added anyway");
             addBagelCoffee(filling);
@@ -218,7 +217,8 @@ public class Basket {
             while(productCounts.get(sku) >= 6)
             {
                 priceDiscountNewPrice[0] = this.inv.getPrice(sku) * 6.0;
-                // Different discount for Plain and others
+                // Different discount for Plain and others to avoid "discount" resulting the in customer paying more
+                //  for Plain bagels
                 priceDiscountNewPrice[2] = inv.getVariant(sku).equals("Plain") ? 2.29d : 2.49d;
                 priceDiscountNewPrice[1] += priceDiscountNewPrice[0] - priceDiscountNewPrice[2];
                 productCounts.put(sku, productCounts.get(sku) - 6);
@@ -240,10 +240,11 @@ public class Basket {
         for(String sku : productCounts.keySet())
         {
             while(productCounts.get(sku) > 0) {
-                // Eligible for 12 item discount
+                // Is Black Coffee
                 if (inv.getVariant(sku).equals("Black"))
                     coffees++;
                 else if (inv.getName(sku).equals("Bagel")) {
+                    // Plain Bagels and regular bagels are counted separately because of price
                     if (inv.getVariant(sku).equals("Plain"))
                         plains++;
                     else
@@ -252,6 +253,8 @@ public class Basket {
                 productCounts.put(sku, productCounts.get(sku) - 1);
             }
         }
+        // Iterate while there are both coffees and bagels left
+        //  If one of them (coffee or bagel/plain bagel) is 0, there is no discount for the remaining items
         while(coffees >0 && bagels >0)
         {
             priceDiscountNewPrice[0] = 0.99 + 0.49;
@@ -289,15 +292,6 @@ public class Basket {
      */
     public HashMap<String, Double[]> getDiscountedItems() {
         return this.discountedItems;
-    }
-
-    /**
-     * Getter for the productCounts
-     * @return - productCounts
-     */
-    public HashMap<String, Integer> getProductCounts()
-    {
-        return this.productCounts;
     }
 
     /**
