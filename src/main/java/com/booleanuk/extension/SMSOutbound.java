@@ -13,9 +13,9 @@ public class SMSOutbound {
     private static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
     private static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
     private static final String NHONNA_NUMBER = System.getenv("NHONNA_NUMBER");  // Could bots scan this and
-    // spam my private number?
+                                                                                       // spam my private number?
     private static final String TWILIO_NUMBER = System.getenv("TWILIO_NUMBER");  // Does this number only work
-    // for me, or can they scan it too
+                                                                                       // for me, or can they scan it too
 
     private final Inventory inventory;
     private final Random random;

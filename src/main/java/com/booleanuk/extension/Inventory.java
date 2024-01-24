@@ -112,6 +112,11 @@ public class Inventory {
         return "";
     }
 
+    public HashMap<String, String> getVariants()
+    {
+        return this.variants;
+    }
+
     /**
      * Checks the map of prices to find the correct value
      * @param sku
