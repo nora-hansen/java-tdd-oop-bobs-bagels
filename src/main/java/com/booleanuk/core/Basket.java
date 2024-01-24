@@ -27,10 +27,10 @@ public class Basket {
         // Check if the product name is valid
         if(!product.getName().isEmpty())
         {
-            /*if(!product.getName().equals("Filling"))*/
-                return addBagelCoffee(product);
-            /*else
-                return addFilling(product);*/
+            if(!product.getName().equals("Filling"))
+              return addBagelCoffee(product);
+            else
+                return addFilling((Filling) product);
         }
         // Will change this to maybe exceptions? Maybe.
         System.out.println("Could not add product to basket, because product is null");
@@ -44,33 +44,46 @@ public class Basket {
             this.total += product.getPrice();   // Add cost to total
             inv.setStock(product.getSku(), inv.getStock(product.getSku()) -1);
 
-            System.out.println("1 " + product.getVariant() + " " + product.getName() + " has been added to your basket!");
+            System.out.println("1 " + product.getVariant()
+                    + " " + product.getName()
+                    + " has been added to your basket!");
             return true;
 
         }   else {
-            System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");
+            System.out.println("Could not add " + product.getVariant()
+                    + " " + product.getName()
+                    + " to basket, your basket is full!");
             return false;
         }
     }
 
-    /*
+    /**
+     * Add filling to last bagel
+     * @param filling - The filling object to add
+     * @return True/False if the action was successful
+     */
     public boolean addFilling(Filling filling)
     {
         if(basket.size() < size) {  // Is basket full?
             for(int i = basket.size()-1; i > 0; i--)
             {
-                if(basket.get(i).getName().equals("Bagel"))
+                if(basket.get(i) instanceof Bagel)
                 {
-                    basket.get(i).addFilling(filling);
+                    ((Bagel) basket.get(i)).addFilling(filling);
+                    return true;
                 }
             }
-
+            System.out.println("No bagels are in basket, filling added anyway");
+            addBagelCoffee(filling);
+            return true;
         }   else {
-            System.out.println("Could not add " + product.getVariant() + " " + product.getName() + " to basket, your basket is full!");
+            System.out.println("Could not add "
+                    + filling.getVariant() + " "
+                    + filling.getName() + " to basket, your basket is full!");
             return false;
         }
     }
-    */
+
 
     public boolean addToBasket(Product product, int amount, Inventory inv)
     {

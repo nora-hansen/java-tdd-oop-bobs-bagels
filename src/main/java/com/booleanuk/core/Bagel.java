@@ -11,6 +11,6 @@ public class Bagel extends Product {
 
     public void addFilling(Filling filling)
     {
-
+        this.fillings.add(filling);
     }
 }
