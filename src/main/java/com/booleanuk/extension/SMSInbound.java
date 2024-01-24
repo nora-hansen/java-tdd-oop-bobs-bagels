@@ -17,7 +17,16 @@ public class SMSInbound {
         Inventory inv = new Inventory();
 
         post("/receive-sms", (req, res) -> {
-            Body b = new Body.Builder("What's did you say? I don't have ears... Was it " + req.queryParams("Body") + "?").build();
+            placeSMSOrder(req.queryParams("Body"), inv);
+            Body b;
+            if(placeSMSOrder(req.queryParams("Body"), inv))
+            {
+                b = new Body.Builder("Thank you for your order: " + req.queryParams("Body") + "?").build();
+            }
+
+            else
+                b = new Body.Builder("What? " + req.queryParams("Body") + "?").build();
+
 
             Message sms = new Message.Builder()
                     .body(b)
@@ -25,12 +34,9 @@ public class SMSInbound {
             MessagingResponse twiml = new MessagingResponse.Builder()
                     .message(sms)
                     .build();
-            placeSMSOrder(req.queryParams("Body"), inv);
             return twiml.toXml();
         });
     }
-
-
 
     public static boolean placeSMSOrder(String requestBody, Inventory inv)
     {
@@ -56,6 +62,6 @@ public class SMSInbound {
 
         System.out.println("Order" + order);
 
-        return true;
+        return !order.isEmpty();
     }
 }
