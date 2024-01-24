@@ -21,13 +21,11 @@ public class SMSInbound {
             Body b;
             if(placeSMSOrder(req.queryParams("Body"), inv))
             {
-                b = new Body.Builder("Thank you for your order: " + req.queryParams("Body") + "?").build();
+                b = new Body.Builder("Thank you for your order: " + req.queryParams("Body")).build();
             }
 
             else
                 b = new Body.Builder("What? " + req.queryParams("Body") + "?").build();
-
-
             Message sms = new Message.Builder()
                     .body(b)
                     .build();
