@@ -212,5 +212,19 @@ I want to receive a confirmation text message on my phone
 | Classes     | Methods                                                           | Member Variables           | Scenario                      | Output/Result                                                                                       |
 |-------------|-------------------------------------------------------------------|----------------------------|-------------------------------|-----------------------------------------------------------------------------------------------------|
 | SMSOutbound | SMSOutbound::sendMessage(String messageBody)                      | StringBuilder orderSummary | There are items in the basket | A message is sent to the customer with a summary of the items, as well as an estimted delivery time |
-|             | SMSOutbound::sendOrderMessage(HashMap<String, Int> productCounts) |                            |                               |                                                                                                     |
-|             | Inventory::getName(String sku)                                    |                            |                               |                                                                                                     |
+|             | SMSOutbound::sendOrderMessage(HashMap<String, Int> productCounts) | String ACCOUNT_SID         |                               |                                                                                                     |
+|             | Inventory::getName(String sku)                                    | String AUTH_TOKEN          |                               |                                                                                                     |
+|             |                                                                   | String NHONNA_NUMBER       |                               |                                                                                                     |
+|             |                                                                   | String TWILIO_NUMBER       |                               |                                                                                                     |
+
+````dtd
+15.
+As a customer,
+So I can order without trouble,
+I'd like to be able to order using a text message
+````
+
+| Classes    | Methods         | Member Variables | Scenario                              | Output/Result                               |
+|------------|-----------------|------------------|---------------------------------------|---------------------------------------------|
+| SMSInbound | placeSMSOrder() |                  | User sends message with valid order   | A confirmation text is sent                 |
+|            |                 |                  | User sends message with invalid order | A text asking the user to try again is sent |
