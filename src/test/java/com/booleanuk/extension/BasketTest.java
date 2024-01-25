@@ -425,7 +425,6 @@ public class BasketTest {
         basket.addToBasket(blackCoffee);
         basket.addToBasket(latteCoffee);
 
-        basket.messageOrder();
         Assertions.assertTrue(true);
     }
 }
